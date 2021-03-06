@@ -1,0 +1,115 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelPrograma" header="Programa">
+				<h:panelGrid columns="2" id="panelGrid">
+					<h:outputText id="msgNombre" value=" Nombre" />
+					<p:inputText id="txtNombre" binding="#{programaView.txtNombre}"
+						size="50">
+						<p:ajax update="panelPrograma,msg"
+							listener="#{programaView.listener_txtId}" />
+					</p:inputText>
+					<h:outputText id="msgFacultad" value="Facultad" />
+					<p:selectOneMenu id="somFacultad"
+						binding="#{programaView.somFacultad}" style="width:320px;">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItems value="#{programaView.lasFacultadSelectItem}" />
+						<p:ajax update="panelPrograma,msg"
+							listener="#{programaView.action_validar}" />
+					</p:selectOneMenu>
+					<h:outputText id="msgDescripcion" value=" Descripción" />
+					<p:inputTextarea id="txtDescripcion" rows="5" cols="49"
+						counter="display" maxlength="1200"
+						counterTemplate="{0} caracteres restantes" autoResize="false"
+						binding="#{programaView.txtDescripcion}" />
+					<h:outputText value="(Opcional)" />
+					<h:outputText id="display" />
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="somActivo" binding="#{programaView.somActivo}"
+						style="width:320px;">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItem itemValue="S" itemLabel="SI" />
+						<f:selectItem itemValue="N" itemLabel="NO" />
+						<p:ajax update="panelPrograma,msg"
+							listener="#{programaView.action_validar}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<div>
+					<p:commandButton id="btnSave" binding="#{programaView.btnSave}"
+						disabled="true" value="Crear" onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{programaView.action_create()}"
+						update="panelPrograma,msg,panelTable" />
+					<p:commandButton id="btnModify" binding="#{programaView.btnModify}"
+						disabled="true" value="Actualizar"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{programaView.action_modify()}"
+						update="panelPrograma,msg,panelTable" />
+					<p:commandButton id="btnClear" value="Limpiar"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{programaView.action_clear()}"
+						update="panelPrograma,msg,panelTable" />
+				</div>
+			</p:panel>
+			<p:panel id="panelTable">
+				<div>
+					<p:dataTable id="dataPrograma" value="#{programaView.data}"
+						var="programa" reflow="true" resizableColumns="true"
+						scrollable="true" scrollHeight="300" widgetVar="proTable">
+
+						<p:column headerText="Nombre" filterBy="#{programa.nombre}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{programa.nombre}" />
+						</p:column>
+						<p:column headerText="Facultad"
+							filterBy="#{programa.idFacultad_Facultad}"
+							filterMatchMode="exact">
+							<f:facet name="filter">
+								<p:selectOneMenu onchange="PF('proTable').filter()">
+									<f:selectItem itemLabel="TODOS" itemValue="#{null}"
+										noSelectionOption="true" />
+									<f:selectItems value="#{programaView.lasFacultadSelectItem}" />
+								</p:selectOneMenu>
+							</f:facet>
+							<p:outputLabel
+								value="#{programaView.getFacultad(programa.idFacultad_Facultad)}" />
+						</p:column>
+						<p:column headerText="Activo"
+							filterBy="#{programa.activo.equals('S')}"
+							filterMatchMode="equals">
+							<f:facet name="filter">
+								<p:selectOneButton onchange="PF('proTable').filter()">
+									<f:converter converterId="javax.faces.Boolean" />
+									<f:selectItem itemLabel="All" itemValue="" />
+									<f:selectItem itemLabel="Activo" itemValue="true" />
+									<f:selectItem itemLabel="Inactivo" itemValue="false" />
+								</p:selectOneButton>
+							</f:facet>
+							<center>
+								<h:outputText
+									value="#{programa.activo.equals('S') ? 'Sí': 'No'}" />
+							</center>
+						</p:column>
+						<p:column headerText="Editar">
+							<center>
+								<p:commandButton value="Editar" update="formDialog"
+									onstart="PF('statusDialog').show()"
+									onsuccess="PF('statusDialog').hide()"
+									action="#{programaView.editar_action(programa.nombre)}" />
+							</center>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

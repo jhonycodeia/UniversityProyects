@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<style>
+.ui-picklist-list-wrapper, .ui-picklist-list-wrapper>.ui-picklist-list {
+	width: 350px;
+}
+</style>
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelPruebaModulo" header="Selecione los módulos"
+				style="border:0;">
+				<p:pickList value="#{pruebaModuloView.modulos}" var="modulo"
+					converter="moduloPickListConverter" itemLabel="#{modulo.nombre}"
+					itemValue="#{modulo}" showCheckbox="true" responsive="true"
+					showSourceFilter="true" showTargetFilter="true"
+					filterMatchMode="contains">
+					<f:facet name="sourceCaption">Escoger módulos</f:facet>
+					<f:facet name="targetCaption">Módulos a entrenar</f:facet>
+				</p:pickList>
+				<h:panelGrid columns="1" id="panelGrid" style="margin:20px;">
+					<p:commandButton update="msg,panelPruebaModulo"
+						value="Generar entrenamiento y empezar"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						styleClass="btn btn-primary btn-block"
+						action="#{pruebaModuloView.generar}" />
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

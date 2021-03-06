@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="head">
+
+		<script type="text/javascript">
+			// Blue : #3E98D3  |  Red : #EF3F61  |  Green : #2BB673  |  Orange : #F15732
+
+			
+			function skinPie() {
+				this.cfg.shadow = false;
+				this.cfg.title = '';
+				this.cfg.seriesColors = [ '#3E98D3', '#EF3F61', '#2BB673',
+						'#F15732','#ffff00'];
+				this.cfg.grid = {
+					background : '#ffffff',
+					borderColor : '#ffffff',
+					gridLineColor : '#F5F5F5',
+					shadow : false
+				};
+				this.cfg.axesDefaults = {
+					rendererOptions : {
+						textColor : '#666F77',
+					}
+				};
+				this.cfg.seriesDefaults = {
+					renderer : $.jqplot.PieRenderer,
+					shadow : false,
+					lineWidth : 1,
+					markerOptions : {
+						shadow : false,
+						size : 7,
+						style : 'circle'
+					}
+				}
+			}
+
+			
+		</script>
+		<style type="text/css">
+.jqplot-target, .jqplot-axis {
+	color: #546E7A;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form>
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="EmptyBox20"></div>
+
+					<div class="Container33 Responsive">
+						<div class="ContainerIndent">
+							<p:panel style="min-height: 300px;">
+								<i class="icon-user-2 Fs50 Fleft Wid25 hardblue TexAlCenter"></i>
+								<div class="Fs24 Fright MarTop10 leaden Wid70">
+									<span class="hardblue">#{homeView.name}</span>, Bienvenido
+								</div>
+								<div class="Fs12 Fright leaden Wid70">
+									Tienes <span class="red">#{homeView.comentarios}
+										mensajes</span> y <span class="red">#{homeView.capsula}
+										notificaciones</span> !
+								</div>
+								<div class="EmptyBox10"></div>
+								<p:separator styleClass="Wid100"></p:separator>
+								<div class="EmptyBox10"></div>
+								<div class="Fs16 Fright">
+									<a href="#" class="DispInlBlock Fleft Fs16 MarRight20"><i
+										class="icon-briefcase hardblue"> Notificaciones
+											(#{homeView.capsula})</i></a> <a href="#"
+										class="DispInlBlock Fleft Fs16 MarRight20"><i
+										class="icon-bell-alt hardblue"> Mensajes
+											(#{homeView.comentarios})</i></a> <a href="#"
+										class="DispInlBlock Fleft Fs16 MarRight20"></a>
+								</div>
+								<div class="EmptyBox10"></div>
+								<p:separator styleClass="Wid100"></p:separator>
+								<div class="EmptyBox10"></div>
+								<i class="icon-key softgray MarRight10 Fs14 Fright"> Te has
+									logueado - #{homeView.fecha}</i>
+								<div class="EmptyBox10"></div>
+								<p:separator styleClass="Wid100"></p:separator>
+
+							</p:panel>
+						</div>
+					</div>
+
+					<div class="Container33 Responsive">
+						<div class="ContainerIndent">
+							<p:panel style="min-height: 300px;">
+								<div class="Container">
+									<i
+										class=" icon-data-science-inv Fs50 Fleft Wid25 orange TexAlCenter"></i>
+									<div class="Fs24 Fright MarTop10 leaden Wid70">Mi Estatus</div>
+									<div class="Fs12 Fright leaden Wid70">
+										Tus <span class="red">#{homeView.numCapsulas}</span> capsulas,<span
+											class="red">#{homeView.numValidado}</span> capsulas han sido
+										revisadas
+									</div>
+									<div class="EmptyBox10"></div>
+									<p:separator styleClass="Wid100"></p:separator>
+									<div class="EmptyBox10"></div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										Capsulas<br /> <span class="Fs24 orange">#{homeView.numCapsulas}</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid50 TexAlCenter Responsive">
+										Comentarios<br /> <span class="Fs24 red">#{homeView.numComentarios}</span>
+									</div>
+									<div class="Fs12 Fright leaden Wid100 TexAlCenter">
+										Recompensas<br /> <span class="Fs24 hardblue">#{homeView.numRecompensas}</span>
+									</div>
+									<div class="EmptyBox10"></div>
+									<p:separator styleClass="Wid100"></p:separator>
+								</div>
+							</p:panel>
+						</div>
+					</div>
+
+
+
+					<div class="Container33 Responsive">
+						<div class="ContainerIndent">
+							<p:panel style="min-height: 300px;">
+								<h2 class="BigTopic TexAlCenter">Puntos</h2>
+								<p:chart id="pie" type="pie" model="#{homeView.pieModel}"
+									responsive="true" />
+							</p:panel>
+						</div>
+					</div>
+
+					<div class="EmptyBox10"></div>
+				</div>
+			</div>
+
+
+
+			<div class="Container100 leaden-back BorBotLeaden">
+				<div class="ContainerIndent">
+					<p:dataList value="#{homeView.listTrofeos}" var="trof"
+						type="definition">
+						<div class="Container25 Responsive">
+							<div class="ContainerIndent">
+								<p:panel>
+									<div class="Wid100 TexAlCenter">
+										<div class="ContainerIndent">
+											<p:graphicImage value="#{homeView.getTrofeo(trof.idTrofeo)}"
+												styleClass="Wid100" stream="false" />
+											<div class="EmptyBox10"></div>
+											<span class="Fs20 DispBlock hardblue">Trofeo :
+												#{trof.nombre} <br /> <span class="Fs12 softgray">Se
+													desbloquea con un total de :#{trof.requisito}</span>
+											</span>
+										</div>
+									</div>
+								</p:panel>
+							</div>
+						</div>
+					</p:dataList>
+
+					<div class="Container100 Responsive100 ui-fluid">
+						<div class="ContainerIndent">
+							<p:panel>
+								<div class="Container100 Fs20">
+									<i class="icon-chart-bar"></i> Recompensas
+								</div>
+								<div class="EmptyBox10"></div>
+								<p:accordionPanel multiple="false"
+									value="#{homeView.listRecompensas}" var="rec">
+									<p:tab title="#{rec.nombre}">
+										<h:outputText value="#{rec.descripcion}" />
+									</p:tab>
+								</p:accordionPanel>
+							</p:panel>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

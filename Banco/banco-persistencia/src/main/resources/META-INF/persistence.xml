@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="banco-persistencia" transaction-type="RESOURCE_LOCAL">
+		<class>co.edu.usbcali.banco.modelo.Cliente</class>
+		<class>co.edu.usbcali.banco.modelo.Cuenta</class>
+		<class>co.edu.usbcali.banco.modelo.CuentaRegistrada</class>
+		<class>co.edu.usbcali.banco.modelo.TipoDocumento</class>
+		<class>co.edu.usbcali.banco.modelo.TipoTransaccion</class>
+		<class>co.edu.usbcali.banco.modelo.TipoUsuario</class>
+		<class>co.edu.usbcali.banco.modelo.Transaccion</class>
+		<class>co.edu.usbcali.banco.modelo.Usuario</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/banco"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="123"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+		</properties>
+	</persistence-unit>
+</persistence>

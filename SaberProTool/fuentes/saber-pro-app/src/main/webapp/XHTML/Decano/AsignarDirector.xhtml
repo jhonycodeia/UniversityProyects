@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+				<p:panel header="Asignar un director de programa">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Facultad: "/>
+						<p:outputLabel value="#{asignarDirectorView.facultad}"/>
+						<p:outputLabel value="Programas: "/>
+						<p:selectOneMenu binding="#{asignarDirectorView.somPrograma}">
+							<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+							<f:selectItems value="#{asignarDirectorView.lasProgramasoSelectItem}"/>	
+							<p:ajax update="panelTable" listener="#{asignarDirectorView.limpiar}"/>						
+						</p:selectOneMenu>
+						<p:commandButton binding="#{asignarDirectorView.btnAsignar}" value="Asignar" action="#{asignarDirectorView.asignar}" update="msg,panelTable"/>
+						<p:inputText binding="#{asignarDirectorView.txtCodigo}">
+							<p:keyFilter regEx="/[0-9]/"/>
+						</p:inputText>
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="panelTable">
+				<p:dataTable  value="#{asignarDirectorView.data}" scrollable="true" var="usuario"  >
+						<p:column headerText="Código" filterBy="#{usuario.codigo}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{usuario.codigo}" />
+						</p:column>
+						<p:column headerText="Nombre" filterBy="#{usuario.nombre}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{usuario.nombre}" />
+						</p:column>
+						<p:column headerText="Apellido" filterBy="#{usuario.apellido}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{usuario.apellido}" />
+						</p:column>					
+				</p:dataTable>
+			</p:panel>
+			</h:form>
+  </ui:define>
+</ui:composition>

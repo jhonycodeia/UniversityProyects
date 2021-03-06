@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            {{ titulo}}
+
+        </div>
+        <div class="card-block">
+            <form novalidate [formGroup]="form">
+                <br>
+                <div class="form-group row justify-content-center">
+                    <label for="id" class="col-sm-2 ">Id</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="id" formControlName="id">
+                        <div *ngIf="form.controls.id.errors && form.controls.id.touched">
+                            <div *ngIf="form.controls.id.errors.required" class="alert alert-danger">
+                                El campo es requerido
+                            </div>
+                            <div *ngIf="form.controls.id.errors.valorUnico" class="alert alert-danger">
+                                El id ya existe
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="producto" class="col-sm-2 ">Producto</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="producto" formControlName="producto">
+                        <div *ngIf="form.controls.producto.errors && form.controls.producto.touched">
+                            <div *ngIf="form.controls.producto.errors.required" class="alert alert-danger">
+                                El campo es requerido
+                            </div>
+                            <div *ngIf="form.controls.producto.errors.maxlength" class="alert alert-danger">
+                                El campo es solo puede tener hasta 10 caracteres
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="existencias" class="col-sm-2 ">Existencias</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-control" id="existencias" formControlName="existencias">
+                        <div *ngIf="form.controls.existencias.errors && form.controls.existencias.touched">
+                            <div *ngIf="form.controls.existencias.errors.required" class="alert alert-danger">
+                                El campo es requerido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="precio" class="col-sm-2 ">Precio</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="precio" formControlName="precio">
+                        <div *ngIf="form.controls.precio.errors && form.controls.precio.touched">
+                            <div *ngIf="form.controls.precio.errors.required" class="alert alert-danger">
+                                El campo es requerido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label for="proveedor" class="col-sm-2 ">Proveedor</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="proveedor" formControlName="proveedor">
+                        <div *ngIf="form.controls.proveedor.errors && form.controls.proveedor.touched">
+                            <div *ngIf="form.controls.proveedor.errors.required" class="alert alert-danger">
+                                El campo es requerido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+
+                    <div class="col-sm-2"></div>
+                    <button class="btn btn-primary col-sm-3" (click)="create()" [disabled]="!form.valid" *ngIf="!editar">Crear</button>
+                    <button class="btn btn-success col-sm-6" (click)="update()" [disabled]="!form.valid" *ngIf="editar">Actualizar</button>
+                    <button class="btn btn-warning col-sm-3" (click)="limpiar()" *ngIf="!editar">Limpiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

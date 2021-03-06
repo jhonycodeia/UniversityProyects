@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div id="layout-menubar" class="Unselectable fontRegular">
+		<div class="layout-menubarinner-box" id="buttonArea">
+			<a href="#" id="layout-menubar-resize" class="BordRad3"
+				title="Menu Resize"><i class="icon-th-list-2"></i></a> <a href="#"
+				id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i
+				class="icon-menu"></i></a>
+		</div>		
+
+		<h:form id="menuform">
+			<ps:menu id="sm_leftmenu">
+
+				<p:submenu id="sm_dp" label="FEED" icon="icon-doc-text-1">
+					<p:menuitem id="sm_dashboard" value="HOME"
+						icon="icon-home-outline"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/feed/home.xhtml" />
+					<p:menuitem id="sm_recompensas" value="RECOMPENSAS"
+						icon="icon-gift"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/feed/recompensas.xhtml" />
+					<p:menuitem id="sm_ranking" value="RANKING" rendered="#{datosView.permisosLider}"
+						icon="icon-award" 
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/feed/ranking.xhtml" />
+					<p:menuitem id="sm_trofeo" value="TROFEO"
+						icon="icon-key"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/feed/trofeos.xhtml" />
+					<p:menuitem id="sm_settings" value="SETTINGS"
+						icon="icon-cog"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/feed/perfil.xhtml" />
+				</p:submenu>
+				<p:submenu id="sm_capsula" label="CAPSULA" icon=" icon-globe">
+					<p:menuitem id="sm_capsular" value="CAPSULAS" icon="icon-briefcase"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/capsula/capsulas.xhtml" />
+					<p:menuitem id="sm_mis_capsular" value="MIS CAPSULAS" icon="icon-suitcase"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/capsula/misCapsulas.xhtml" />
+					<p:menuitem id="sm_mis_validar" value="VALIDAR CAPSULAS" icon="icon-list-alt" rendered="#{datosView.permisosLider}"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/capsula/misValidarCapsula.xhtml" />
+
+					<p:submenu id="sm_crea_capsula" label="CREA UNA CAPSULA"
+						icon="icon-floppy">
+						<p:menuitem id="sm_capsula_estandar" value="CAPSULA ESTANDAR" icon="icon-graduation-cap"
+							url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/capsula/capsulaEstandar.xhtml" />
+						<p:menuitem id="sm_capsula_tool" value="CAPSULA TOOL" icon="icon-beaker"
+							url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/capsula/capsulaTool.xhtml" />
+						<p:menuitem id="sm_capsula_guia" value="CAPSULA GUIA" icon="icon-fork"
+							url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/capsula/capsulaGuia.xhtml" />
+					</p:submenu>
+				</p:submenu>
+				<p:submenu id="sm_admin" label="ADMINISTRADOR" icon="icon-wrench" rendered="#{datosView.permisosAdmin}">
+					<p:menuitem id="sm_admin_area" value="AREA"
+						containerStyleClass="layout-menubar-active" icon="icon-cog-2"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/areaAdmin.xhtml" />
+					<p:menuitem id="sm_admin_categoria" value="CATEGORIA"
+						containerStyleClass="layout-menubar-active" icon="icon-cog-2"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/categoriaAdmin.xhtml" />
+					<p:menuitem id="sm_admin_proceso" value="PROCESO"
+						containerStyleClass="layout-menubar-active" icon="icon-cog-2"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/procesoAdmin.xhtml" />
+					<p:menuitem id="sm_admin_subproceso" value="SUBPROCESO"
+						containerStyleClass="layout-menubar-active" icon="icon-cog-2"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/subprocesoAdmin.xhtml" />
+					<p:menuitem id="sm_admin_tipocapsula" value="TIPO CAPSULA"
+						containerStyleClass="layout-menubar-active" icon="icon-cog-2"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/tipoCapsulaAdmin.xhtml" />
+					<p:menuitem id="sm_admin_tipodocumento" value="TIPO DOCUMENTO"
+						containerStyleClass="layout-menubar-active" icon="icon-cog-2"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/tipoDocumentoAdmin.xhtml" />
+					<p:menuitem id="sm_admin_tiponotificacion"
+						value="TIPO NOTIFICACION" icon="icon-cog-2"
+						containerStyleClass="layout-menubar-active"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/tipoNotificacionAdmin.xhtml" />
+					<p:menuitem id="sm_admin_tipopuntos" value="TIPO PUNTOS" icon="icon-cog-2"
+						containerStyleClass="layout-menubar-active"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/tipoPuntosAdmin.xhtml" />
+					<p:menuitem id="sm_admin_tipousuario" value="TIPO USUARIO" icon="icon-cog-2"
+						containerStyleClass="layout-menubar-active"
+						url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/admin/tipoUsuarioAdmin.xhtml" />
+
+				</p:submenu>
+			</ps:menu>
+		</h:form>
+	</div>
+
+</ui:composition>

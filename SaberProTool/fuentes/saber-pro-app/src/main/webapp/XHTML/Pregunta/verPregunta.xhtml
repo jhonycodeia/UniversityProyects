@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog" enctype="multipart/form-data">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelPregunta" header="Pregunta">
+				<h:panelGrid columns="3">
+					<h:outputText value="Crear nueva pregunta:" />
+					<h:outputText value="" />
+					<h:link outcome="pregunta.xhtml" value="Crear una nueva pregunta"
+						styleClass="fa fa-plus-square" style="color:black;" />
+					<h:outputText value="Importar preguntas:" />
+					<p:fileUpload label="Cargar archivo"
+						value="#{preguntaView.chooseImportFile}" mode="simple"
+						skinSimple="true" />
+					<p:commandButton value="Importar preguntas(xls o xlsx)"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{preguntaView.importFilePregunta}"
+						update="msg,panelTable,men" ajax="false" />
+				</h:panelGrid>
+			</p:panel>
+			<p:panel id="panelTable">
+				<p:dataTable id="dataPregunta" value="#{preguntaView.data}"
+					var="pregunta" rows="10" widgetVar="tipTable" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,25,50">
+
+					<p:column headerText="Contenido"
+						filterBy="#{pregunta.descripcionPregunta}"
+						filterMatchMode="contains">
+						<p:outputLabel value="#{pregunta.descripcionPregunta}"
+							escape="false" />
+					</p:column>
+					<p:column headerText="Módulo"
+						filterBy="#{pregunta.modulo.idModulo}" filterMatchMode="exact">
+						<f:facet name="filter">
+							<p:selectOneMenu onchange="PF('tipTable').filter()">
+								<f:selectItem itemLabel="TODOS" itemValue="#{null}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{preguntaView.lasModuloSelectItemFilter}" />
+							</p:selectOneMenu>
+						</f:facet>
+						<p:outputLabel
+							value="#{preguntaView.getModulo(pregunta.modulo.idModulo)}" />
+					</p:column>
+					<p:column headerText="Activo"
+						filterBy="#{pregunta.activo.equals('S')}" filterMatchMode="equals"
+						styleClass="text-center">
+						<f:facet name="filter">
+							<p:selectOneButton onchange="PF('tipTable').filter()">
+								<f:converter converterId="javax.faces.Boolean" />
+								<f:selectItem itemLabel="All" itemValue="" />
+								<f:selectItem itemLabel="Activo" itemValue="true" />
+								<f:selectItem itemLabel="Inactivo" itemValue="false" />
+							</p:selectOneButton>
+						</f:facet>
+						<h:outputText value="#{pregunta.activo.equals('S') ? 'Sí': 'No'}" />
+					</p:column>
+					<p:column headerText="Opción" width="5%">
+						<h:link outcome="pregunta.xhtml" value="Editar"
+							styleClass="fa fa-cog" style="color:black;">
+							<f:param name="id" value="#{pregunta.idPregunta}" />
+						</h:link>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

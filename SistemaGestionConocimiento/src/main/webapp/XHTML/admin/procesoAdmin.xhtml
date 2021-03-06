@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelCategoria" header="Procesos">
+				<h:panelGrid columns="2" id="panelGrid">
+					<h:outputText id="msgNombre" value=" Nombre" />
+					<p:inputText id="txtNombre" binding="#{procesoView.txtNombre}">
+						<p:ajax update="panelCategoria,msg"
+							listener="#{procesoView.listener_txtId}" />
+					</p:inputText>
+					<h:outputText id="msgDescripcion" value=" Descripción" />
+					<p:inputTextarea id="txtDescripcion" rows="5" maxlength="1000" binding="#{procesoView.txtDescripcion}"/>					
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="somActivo" binding="#{procesoView.somActivo}">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItem itemValue="S" itemLabel="SI" />
+						<f:selectItem itemValue="N" itemLabel="NO" />
+						<p:ajax update="panelCategoria,msg"
+							listener="#{procesoView.action_validar}"/>
+					</p:selectOneMenu>
+
+
+				</h:panelGrid>
+				<div>
+					<p:commandButton id="btnSave" binding="#{procesoView.btnSave}"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" disabled="true"
+						value="Crear"  action="#{procesoView.action_create()}"
+						update="panelCategoria,msg,panelTable"/>
+					<p:commandButton id="btnModify" binding="#{procesoView.btnModify}"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" disabled="true"
+						value="Actualizar"  action="#{procesoView.action_modify()}"
+						update="panelCategoria,msg,panelTable"/>
+					<p:commandButton id="btnClear" value="Limpiar"
+						action="#{procesoView.action_clear()}"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						update="panelCategoria,msg"
+						 />
+				</div>
+			</p:panel>
+			<p:panel id="panelTable">
+				<div>
+					<p:dataTable id="dataCategoria" value="#{procesoView.data}"
+						var="var" reflow="true" resizableColumns="true"
+						scrollable="true" scrollHeight="300" widgetVar="varTable">
+
+						<p:column headerText="Nombre" filterBy="#{var.nombre}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{var.nombre}" />
+						</p:column>
+						<p:column headerText="Activo"
+							filterBy="#{var.activo.equals('S')}"
+							filterMatchMode="equals">
+							<f:facet name="filter">
+								<p:selectOneButton onchange="PF('varTable').filter()">
+									<f:converter converterId="javax.faces.Boolean" />
+									<f:selectItem itemLabel="All" itemValue="" />
+									<f:selectItem itemLabel="Activo" itemValue="true" />
+									<f:selectItem itemLabel="Inactivo" itemValue="false" />
+								</p:selectOneButton>
+							</f:facet>
+							<center>
+								<h:outputText
+									value="#{var.activo.equals('S') ? 'Sí': 'No'}" />
+							</center>
+						</p:column>
+						<p:column headerText="Editar">
+							<center>
+								<p:commandButton value="Editar" update="formDialog"
+									onstart="PF('statusDialog').show()"
+									onsuccess="PF('statusDialog').hide()"
+									action="#{procesoView.editar_action(var.nombre)}" />
+							</center>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+			
+		</h:form>
+    </ui:define>
+
+</ui:composition>

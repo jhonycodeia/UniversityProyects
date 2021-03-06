@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelTipoPrueba" header="Tipo de prueba">
+				<h:panelGrid columns="2" id="panelGrid">
+					<h:outputText id="msgNombre" value=" Nombre" />
+					<p:inputText id="txtNombre" binding="#{tipoPruebaView.txtNombre}"
+						size="50">
+						<p:ajax update="panelTipoPrueba,msg"
+							listener="#{tipoPruebaView.listener_txtId}" />
+					</p:inputText>
+					<h:outputText id="msgDescripcion" value=" Descripción" />
+					<p:inputTextarea id="txtDescripcion" rows="5" cols="49"
+						counter="display" maxlength="1200"
+						counterTemplate="{0} caracteres restantes" autoResize="false"
+						binding="#{tipoPruebaView.txtDescripcion}" />
+					<h:outputText value="(Opcional)" />
+					<h:outputText id="display" />
+					<h:outputText id="msgActivo" value=" Activo" />
+					<p:selectOneMenu id="somActivo"
+						binding="#{tipoPruebaView.somActivo}" style="width:320px;">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItem itemValue="S" itemLabel="SI" />
+						<f:selectItem itemValue="N" itemLabel="NO" />
+						<p:ajax update="panelTipoPrueba,msg"
+							listener="#{tipoPruebaView.action_validar}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<div>
+					<p:commandButton id="btnSave" binding="#{tipoPruebaView.btnSave}"
+						disabled="true" value="Crear" onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{tipoPruebaView.action_create()}"
+						update="panelTipoPrueba,msg,panelTable" />
+					<p:commandButton id="btnModify"
+						binding="#{tipoPruebaView.btnModify}" disabled="true"
+						value="Actualizar" onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{tipoPruebaView.action_modify()}"
+						update="panelTipoPrueba,msg,panelTable" />
+					<p:commandButton id="btnClear" value="Limpiar"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{tipoPruebaView.action_clear()}"
+						update="panelTipoPrueba,msg,panelTable" />
+				</div>
+			</p:panel>
+			<p:panel id="panelTable">
+				<div>
+					<p:dataTable id="dataTipoPrueba" value="#{tipoPruebaView.data}"
+						var="tipoPrueba" reflow="true" resizableColumns="true"
+						scrollable="true" scrollHeight="300" widgetVar="tipTable">
+
+						<p:column headerText="Nombre" filterBy="#{tipoPrueba.nombre}"
+							filterMatchMode="contains">
+							<p:outputLabel value="#{tipoPrueba.nombre}" />
+						</p:column>
+						<p:column headerText="Activo"
+							filterBy="#{tipoPrueba.activo.equals('S')}"
+							filterMatchMode="equals">
+							<f:facet name="filter">
+								<p:selectOneButton onchange="PF('tipTable').filter()">
+									<f:converter converterId="javax.faces.Boolean" />
+									<f:selectItem itemLabel="All" itemValue="" />
+									<f:selectItem itemLabel="Activo" itemValue="true" />
+									<f:selectItem itemLabel="Inactivo" itemValue="false" />
+								</p:selectOneButton>
+							</f:facet>
+							<center>
+								<h:outputText
+									value="#{tipoPrueba.activo.equals('S') ? 'Sí': 'No'}" />
+							</center>
+						</p:column>
+						<p:column headerText="Editar">
+							<center>
+								<p:commandButton value="Editar" update="formDialog"
+									onstart="PF('statusDialog').show()"
+									onsuccess="PF('statusDialog').hide()"
+									action="#{tipoPruebaView.editar_action(tipoPrueba.nombre)}" />
+							</center>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

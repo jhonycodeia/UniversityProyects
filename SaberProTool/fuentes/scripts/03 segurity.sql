@@ -1,0 +1,12 @@
+﻿REVOKE ALL ON ALL TABLES IN SCHEMA public FROM saberprotool;
+
+REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM saberprotool;
+
+DROP USER IF EXISTS saberprotool;
+
+CREATE USER saberprotool WITH PASSWORD 'saberpro';
+
+GRANT INSERT,SELECT,UPDATE,DELETE ON ALL TABLES IN SCHEMA public TO saberprotool;
+
+GRANT SELECT,USAGE ON ALL SEQUENCES IN schema public TO saberprotool;
+

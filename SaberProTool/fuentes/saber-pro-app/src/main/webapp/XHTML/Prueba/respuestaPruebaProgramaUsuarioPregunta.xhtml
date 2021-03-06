@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelRespuestaPruebaProgramaUsuarioPregunta"
+				header="Realizacion de la prueba">			
+				
+   					<p:dataGrid columns="1"
+						value="#{respuestaPruebaProgramaUsuarioPreguntaView.dataPrueba}"
+						var="data" style="width:85%;">
+						<p:panelGrid columns="2">
+							<p:outputLabel value="Pregunta" />
+							<p:outputLabel value="#{data.numeroPregunta}" />
+							<p:outputLabel value="Contenido de la pregunta" />
+							<p:outputLabel value="#{data.contenidoPregunta}" escape="false" />
+							<p:outputLabel value="Respuestas" />
+							<p:selectOneRadio value="#{data.respuestaSelecionada}"
+								layout="responsive" columns="1">
+								<f:selectItems value="#{data.listRespuestas}" />
+								<p:ajax
+									listener="#{respuestaPruebaProgramaUsuarioPreguntaView.guardarRespuesta(data.idPregunta,data.idRespuesta)}" />
+							</p:selectOneRadio>
+						</p:panelGrid>
+					</p:dataGrid>
+					<p:commandButton value="Finalizar" styleClass="btn btn-primary" update="men"
+					action="#{respuestaPruebaProgramaUsuarioPreguntaView.finalizarPrueba()}" />
+					     
+    
+					 
+					<p:panel rendered="#{respuestaPruebaProgramaUsuarioPreguntaView.esSimulacro}" style="position:fixed;right:5%;top:15%;">
+						<script>
+						 window.formatMe = function(value){  
+						        return "The End is near (" + value + ")";  
+						    }  
+						</script>
+						<style>
+							.ui-widget-header{
+							color:black;
+							
+							}
+						</style>
+						<pe:timer  format="HH:mm:ss"  timeout="#{respuestaPruebaProgramaUsuarioPreguntaView.tiempo}"  />
+						
+					</p:panel>	
+					
+				
+			</p:panel>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

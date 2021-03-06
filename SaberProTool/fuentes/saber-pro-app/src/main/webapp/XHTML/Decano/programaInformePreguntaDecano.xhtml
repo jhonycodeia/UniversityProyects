@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelProgramInformePregunta"
+				header="Informe por preguntas erroneas">
+				<h:panelGrid columns="2" id="panelGrid">
+					<p:outputLabel value="Facultad  :" />
+					<p:outputLabel value="#{datosSessionView.facultad.nombre}" />
+					<p:outputLabel value="Programa académico  :" />
+					<p:outputLabel value="#{datosSessionView.programa.nombre}" />
+					<p:outputLabel value="Módulo  :" />
+					<p:selectOneMenu binding="#{programaInformePreguntaView.somModulo}">
+						<f:selectItem itemValue="#{null}"
+							itemLabel="----------------------------------" />
+						<f:selectItems
+							value="#{programaInformePreguntaView.lasModuloSelectItem}" />
+						<p:ajax listener="#{programaInformePreguntaView.limpiar}"
+							update="dataPregunta" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:dataTable id="dataPregunta"
+					value="#{programaInformePreguntaView.data}" var="pregunta">
+					<p:column headerText="Contenido de pregunta">
+						<p:outputLabel	value="#{pregunta.contenido}" escape="false"/>
+					</p:column>
+					<p:column headerText="Resultado">
+						<p:outputLabel
+							value="#{pregunta.resultado}" />
+					</p:column>				
+					<p:column headerText="Ver">
+						<p:commandButton value="Visualizar" action="#{programaInformePreguntaView.verPregunta(pregunta.id)}"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

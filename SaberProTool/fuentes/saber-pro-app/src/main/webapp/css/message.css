@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300);
+* {
+  transition: all 0.15s;
+}
+
+body {
+  background: #fff;
+  color: #999998;
+  font-family: "Open Sans", sans-serif;
+}
+
+.wrap {
+  box-shadow: 0 0 10px rgba(200, 201, 201, 0.5);
+  background: #fff;
+  width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+          transform: translateX(-50%) translateY(-50%);
+}
+.wrap .block-text {
+  padding: 25px;
+}
+.wrap .block-text h1 {
+  color: #B7AA9C;
+  font-size: 20px;
+  margin: 30px 0;
+}
+.wrap .block-text hr {
+  display: block;
+  border: none;
+  margin: 0;
+  width: 30px;
+  background: #efefef;
+  margin-bottom: 25px;
+  height: 2px;
+}
+.wrap .block-text p {
+  font-weight: 300;
+  line-height: 20px;
+  font-size: 14px;
+}
+.wrap .block-date {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.wrap .block-date-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.wrap .date {
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+  letter-spacing: 1px;
+  padding: 0px 30px 15px 30px;
+  font-size: 18px;
+  opacity: 0;
+  transition: all 0.25s;
+  -webkit-transform: translateY(40px);
+          transform: translateY(40px);
+}
+.wrap .day {
+  float: left;
+}
+.wrap .time {
+  float: right;
+}
+.wrap span {
+  display: block;
+  float: left;
+  height: 10px;
+  bottom: 0;
+  left: 0;
+  content: "";
+}
+.wrap span.dark {
+  background: #5FB2B2;
+}
+.wrap span.light {
+  background: #9BCFCF;
+}
+.wrap span.percent-75 {
+  width: 75%;
+}
+.wrap span.percent-25 {
+  width: 25%;
+}
+.wrap:hover {
+  box-shadow: 0 10px 20px rgba(200, 201, 201, 0.5);
+}
+.wrap:hover .block-text h1 {
+  margin-top: 5px;
+}
+.wrap:hover .block-text hr {
+  height: 1px;
+}
+.wrap:hover .block-date .date {
+  opacity: 1;
+  padding: 25px 30px 15px 30px;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.wrap:hover .block-date span {
+  height: 45px;
+}
+
+
+

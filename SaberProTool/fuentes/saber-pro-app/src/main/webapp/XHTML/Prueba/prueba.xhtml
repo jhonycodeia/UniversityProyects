@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelPrueba" header="Realizar entrenamiento"
+				style="border:0;">
+				<p:commandButton update="msg" onstart="PF('statusDialog').show()"
+					onsuccess="PF('statusDialog').hide()"
+					value="Generar nuevo entrenamiento"
+					action="#{pruebaView.createEntrenamiento}"
+					binding="#{pruebaView.btnGenerar}" styleClass="btn btn-primary"
+					style="margin-left:20px;" />
+			</p:panel>			
+			<p:panel id="panelTable">
+				<div>
+					<p:dataTable id="dataPrueba" value="#{pruebaView.data}"
+						var="prueba" reflow="true" resizableColumns="true"
+						scrollable="true" scrollHeight="300" widgetVar="modTable">
+
+						<p:column headerText="Tipo de prueba">
+							<p:outputLabel
+								value="#{pruebaView.getTipoPrueba(prueba.prueba.idPrueba)}" />
+						</p:column>
+						<p:column headerText="Tiempo abierto">
+							<p:outputLabel value="#{pruebaView.fechaRangoFechas(prueba.prueba.idPrueba)}" />
+						</p:column>						
+						<p:column headerText="Fecha de realización">
+							<p:outputLabel value="#{prueba.fechaModificacion}" />
+						</p:column>
+						<p:column headerText="Estado de la prueba">
+							<p:outputLabel
+								value="#{pruebaView.getEstadoPrueba(prueba.estadoPrueba.idEstadoPrueba)}" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Ver"
+								action="#{pruebaView.verPrueba(prueba.idPruebaProgramaUsuario)}" update=":formDialog"/>
+							
+							<p:commandButton value="Revisar" 
+								action="#{pruebaView.verResultado(prueba.idPruebaProgramaUsuario)}" update=":formDialog"/>
+
+							<!-- p:commandLink
+								actionListener="#{pruebaView.action_seleccionarPrueba(prueba)}"
+								ajax="false">
+
+								<p:fileDownload value="#{pruebaView.reportePDF}" />
+
+								<h:graphicImage
+									url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/pdf-icon.png"
+									style="width: 32px; height: 32px;" />
+
+							</p:commandLink-->
+
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:panel header="Principal">
+			<p:outputLabel value="#{principalVista.nombreUsuario}" />
+			<a style="float: right;"
+				href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout">
+				Cerrar Sesion </a>
+			<p:panel rendered="#{principalVista.perfilView}">
+				<a
+					href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/CLIENTE/cliente.xhtml">
+					Cliente </a>
+			</p:panel>
+			<p:panel rendered="#{principalVista.asesorView}">
+				<a
+					href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/ASESOR_COMERCIAL/asesor.xhtml">
+					Asesor Comercial </a>
+			</p:panel>
+			<p:panel rendered="#{principalVista.cajeroView}">
+				<a
+					href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/CAJERO/cajero.xhtml">
+					Cajero </a>
+			</p:panel>
+			<p:panel rendered="#{principalVista.administradorView}">
+				<a
+					href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/ADMINISTRADOR/administrador.xhtml">
+					Administrador </a>
+			</p:panel>
+		</p:panel>
+
+
+	</h:form>
+</h:body>
+</html>

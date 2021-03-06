@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelProgramInformeEstudiante"
+				header="Informe por estudiante">
+				<h:panelGrid columns="2" id="panelGrid">
+					<p:outputLabel value="Facultad  :" />
+					<p:outputLabel value="#{datosSessionView.facultad.nombre}" />
+					<p:outputLabel value="Programa académico  :" />
+					<p:outputLabel value="#{datosSessionView.programa.nombre}" />
+					<p:outputLabel value="Código  :" />
+					<p:inputText binding="#{programaInformeEstudianteView.txtCodigo}">
+						<p:keyFilter regEx="/[0-9]/"/>
+					</p:inputText>
+					<p:commandButton value="Consultar" onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" update="tabPanel,msg" action="#{programaInformeEstudianteView.consultarPrueba}" />
+				</h:panelGrid>
+				<p:tabView id="tabPanel">
+					<p:tab title="Estudiantes">
+						<p:panel id="panelTableEstudiante">
+							<p:dataTable id="dataEstudiante"
+								value="#{programaInformeEstudianteView.losUsuarios}"
+								var="usuario" reflow="true" resizableColumns="true"
+								scrollable="true" scrollHeight="300" widgetVar="userTable">
+								<p:column headerText="Código">
+									<p:outputLabel value="#{usuario.codigo}" />
+								</p:column>
+								<p:column headerText="Nombre">
+									<p:outputLabel value="#{usuario.nombre} #{usuario.apellido}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+					<p:tab title="Pruebas">
+						<p:panel id="panelTablePrueba">
+							<p:dataTable id="dataPrueba"
+								value="#{programaInformeEstudianteView.data}" var="prueba"
+								reflow="true" resizableColumns="true" scrollable="true"
+								scrollHeight="300" widgetVar="pruebaTable">
+								<p:column headerText="Tipo de prueba">
+									<p:outputLabel
+										value="#{pruebaView.getTipoPrueba(prueba.prueba.idPrueba)}" />
+								</p:column>
+								<p:column headerText="Fecha">
+									<p:outputLabel value="#{prueba.fechaModificacion}" />
+								</p:column>
+								<p:column>
+									<p:commandLink										
+										ajax="false" value="Descargar">
+
+										<p:fileDownload value="#{programaInformeEstudianteView.getReportePDF(prueba.idPruebaProgramaUsuario)}" />
+
+										<h:graphicImage
+											url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/pdf-icon.png"
+											style="width: 32px; height: 32px;" />
+									</p:commandLink>
+
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
+
+				</p:tabView>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

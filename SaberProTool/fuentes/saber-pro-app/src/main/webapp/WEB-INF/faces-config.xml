@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+
+	<component>
+		<component-type>org.primefaces.component.SentinelMenu</component-type>
+		<component-class>org.primefaces.sentinel.component.menu.SentinelMenu</component-class>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<component-family>org.primefaces.component</component-family>
+			<renderer-type>org.primefaces.component.SentinelMenuRenderer</renderer-type>
+			<renderer-class>org.primefaces.sentinel.component.menu.SentinelMenuRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/dashboard.xhtml</to-view-id>
+
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/login.xhtml?authfailed=true</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>dashboard</from-outcome>
+			<to-view-id>/dashboard.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>font-icons.xhtml</from-outcome>
+			<to-view-id>/font-icons.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+</faces-config>

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:outputScript name="jquery/jquery.js" library="primefaces"
+			target="head" />
+
+		<h3 class="hardblue TexAlCenter">RANKING</h3>
+		<span class="TexAlCenter DispBlock Wid100">Puedes visualizar
+			top de usuario que mas participan</span>
+
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="men" />
+			<p:tabView>
+				<p:tab title="Ranking por puntos">
+					<p:panel>
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Tipo de puntos"/>
+							<p:selectOneMenu binding="#{rankView.somPuntos}">
+								<f:selectItem itemLabel="-------------------" itemValue="0" />
+								<f:selectItems value="#{rankView.lasPuntosSelectItem}" />
+								<p:ajax update="id_rank_puntos"
+								listener="#{rankView.cambiar}"/>
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<p:dataTable id="id_rank_puntos" var="rank" value="#{rankView.listPuntos}" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+							<p:column headerText="Puesto">
+								<h:outputText value="#{rank.id}" />
+							</p:column>
+							<p:column headerText="Usuario">
+								<h:outputText value="#{rank.nombre}" />
+							</p:column>
+							<p:column headerText="Cantidad">
+								<h:outputText value="#{rank.valor}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Ranking por capsulas">
+					<p:panel>
+						<p:dataTable var="rank" value="#{rankView.listCapsulas}" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+							<p:column headerText="Puesto">
+								<h:outputText value="#{rank.id}" />
+							</p:column>
+							<p:column headerText="Usuario">
+								<h:outputText value="#{rank.nombre}" />
+							</p:column>
+							<p:column headerText="Cantidad">
+								<h:outputText value="#{rank.valor}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Ranking por comentarios">
+					<p:panel>
+						<p:dataTable var="rank" value="#{rankView.listComentarios}" rows="10"
+							paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+							<p:column headerText="Puesto">
+								<h:outputText value="#{rank.id}" />
+							</p:column>
+							<p:column headerText="Usuario">
+								<h:outputText value="#{rank.nombre}" />
+							</p:column>
+							<p:column headerText="Cantidad">
+								<h:outputText value="#{rank.valor}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

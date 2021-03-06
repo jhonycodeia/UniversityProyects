@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="greenPU"
+        transaction-type="RESOURCE_LOCAL">
+        
+                    <class>com.green.modelo.Proceso</class>
+                                <class>com.green.modelo.Subproceso</class>
+                                <class>com.green.modelo.UsuarioTrofeo</class>
+                                <class>com.green.modelo.Notificacion</class>
+                                <class>com.green.modelo.CapsulaPalabrasClave</class>
+                                <class>com.green.modelo.TipoUsuario</class>
+                                <class>com.green.modelo.Parametro</class>
+                                <class>com.green.modelo.PalabrasClave</class>
+                                <class>com.green.modelo.Recompensa</class>
+                                <class>com.green.modelo.Capsula</class>
+                                <class>com.green.modelo.TipoCapsula</class>
+                                <class>com.green.modelo.Usuario</class>
+                                <class>com.green.modelo.TipoNotificacion</class>
+                                <class>com.green.modelo.Documento</class>
+                                <class>com.green.modelo.TipoDocumento</class>
+                                <class>com.green.modelo.Trofeo</class>
+                                <class>com.green.modelo.Categoria</class>
+                                <class>com.green.modelo.Calificacion</class>
+                                <class>com.green.modelo.Area</class>
+                                <class>com.green.modelo.RecompensaUsuario</class>
+                                <class>com.green.modelo.Comentario</class>
+                                <class>com.green.modelo.TipoPuntos</class>
+                                <class>com.green.modelo.Puntos</class>
+                          
+        <properties>
+            <property name="hibernate.connection.driver_class"
+                value="org.postgresql.Driver" />
+             <property name="hibernate.connection.url"
+                    value="jdbc:postgresql://localhost:5432/green" />
+             <property name="hibernate.connection.username" value="jhony" />
+             <property name="hibernate.connection.password" value="123" />
+        </properties>
+     
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableSaludo" header="SaludoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{saludoView.data}" var="saludo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{saludo.idSaludo}" sortBy="#{saludo.idSaludo}" >
+										 <f:facet name="header">
+										<h:outputText value="idSaludo"/>
+										</f:facet>
+										 <h:outputText value="#{saludo.idSaludo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{saludo.saludo}" sortBy="#{saludo.saludo}" >
+										 <f:facet name="header">
+										<h:outputText value="Saludo"/>
+										</f:facet>
+										 <h:outputText value="#{saludo.saludo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saludo.idIdioma_Idioma}" sortBy="#{saludo.idIdioma_Idioma}" >
+										 <f:facet name="header">
+										<h:outputText value="IdIdioma_Idioma"/>
+										</f:facet>
+										 <h:outputText value="#{saludo.idIdioma_Idioma}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogSaludo"
+										actionListener="#{saludoView.action_edit}">
+										<f:attribute name="selectedSaludo" value="#{saludo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{saludoView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedSaludo" value="#{saludo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{saludoView.action_new()}" update=":dialogSaludo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogSaludo" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{saludoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelSaludo" header="Saludo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdSaludo" value="IdSaludo"/>
+									 <p:inputText id="txtIdSaludo" binding="#{saludoView.txtIdSaludo}">
+									 <p:ajax update=":dialogSaludo" listener="#{saludoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgSaludo" value=" Saludo"/>
+									<p:inputText id="txtSaludo" disabled="true" binding="#{saludoView.txtSaludo}"/>
+																		<h:outputText id="msgIdIdioma_Idioma" value=" IdIdioma_Idioma"/>
+									<p:inputText id="txtIdIdioma_Idioma" disabled="true" binding="#{saludoView.txtIdIdioma_Idioma}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{saludoView.btnSave}" value="Save" action="#{saludoView.action_save()}" update=":dialogSaludo :frm:panelDataTableSaludo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{saludoView.action_clear()}" update=":dialogSaludo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{saludoView.action_closeDialog()}" update=":dialogSaludo" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

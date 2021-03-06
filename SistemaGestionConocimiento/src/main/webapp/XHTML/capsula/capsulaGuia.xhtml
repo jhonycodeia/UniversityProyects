@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:outputScript name="jquery/jquery.js" library="primefaces"
+			target="head" />
+
+		<h3 class="hardblue TexAlCenter">CAPSULA GUIA</h3>
+		<span class="TexAlCenter DispBlock Wid100">ESCRIBRE SOBRE LOS
+			USO QUE HAS REALIZADO CON LA HERRAMIENTA PARA BRINDAR MEJORA</span>
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="men" />
+			<p:panel id="panel_datos" header="Capsula de conocimiento">
+				<p:inputText value="#{capsulaGuiaView.machete}"
+					style="display:none;" />
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Titulo *:		" />
+					<p:inputText style="width:80%;"
+						binding="#{capsulaGuiaView.txtTitulo}" />
+					<p:outputLabel value=" Descripción:		" />
+					<p:inputTextarea id="txtDescripcion"
+						binding="#{capsulaGuiaView.txtDescripcion}" rows="5"
+						maxlength="1000" style="width:80%;" />
+					<h:outputText value="Capsula tool:" />
+					<p:selectOneMenu style="width:78%;"
+						binding="#{capsulaGuiaView.somCapsula}">
+						<f:selectItem itemValue="0" itemLabel="-------------------" />
+						<f:selectItems value="#{capsulaGuiaView.lasCapsulasSelectItem}" />
+					</p:selectOneMenu>
+					<p:outputLabel for="chips" value="Palabras claves:		" />
+					<p:chips id="chips" style="width:100%;" inputStyle="width:80%;"
+						value="#{capsulaGuiaView.items}" />
+					<p:outputLabel value="Disparador:		" />
+					<p:textEditor widgetVar="editor1" style="width:82%;"
+						value="#{capsulaGuiaView.disparador}" />
+					<p:outputLabel value="Situacion:		" />
+					<p:textEditor widgetVar="editor2" style="width:82%;"
+						value="#{capsulaGuiaView.situacion}" />
+					<p:outputLabel value="Resolucion:		" />
+					<p:textEditor widgetVar="editor3" style="width:82%;"
+						value="#{capsulaGuiaView.resolucion}" />
+					<p:outputLabel value="Archivos:		" />
+					<p:fileUpload auto="true" multiple="true"
+						update="files_cargados,men"
+						fileUploadListener="#{capsulaGuiaView.handleUpload}" />
+					<p:outputLabel />
+					<p:panel id="files_cargados">
+						<p:dataList id="list_archivos" value="#{capsulaGuiaView.files}"
+							var="file" type="ordered">
+							<f:facet name="header">
+					            Archivos
+					        </f:facet>
+							<p:outputLabel value="#{file.name}" />
+							<p:commandButton value="Eliminar"
+								onclick="PF('dlgEliminar').show();"
+								action="#{capsulaGuiaView.borrarDocumento(file.name)}" />
+						</p:dataList>
+					</p:panel>
+					<p:outputLabel />
+					<p:commandButton value="Actualizar capsula"
+						rendered="#{!capsulaGuiaView.crear}"
+						onclick="PF('statusDialog').show();"
+						onsuccess="PF('statusDialog').hide()" style="width:37%;"
+						action="#{capsulaGuiaView.actualizar}" update="@(form)" />
+					<p:commandButton value="Procesar capsula"
+						rendered="#{capsulaGuiaView.crear}"
+						onclick="PF('statusDialog').show();"
+						onsuccess="PF('statusDialog').hide()" style="width:37%;"
+						action="#{capsulaGuiaView.procesar}" update="@(form)" />
+					<p:outputLabel />
+					<p:commandButton value="Limpiar"
+						rendered="#{capsulaGuiaView.crear}"
+						onclick="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" style="width:37%;"
+						action="#{capsulaGuiaView.limpiar}" update="@(form)" />
+				</h:panelGrid>
+				<p:dialog header="Eliminar un archivo" widgetVar="dlgEliminar"
+					modal="true" height="100">
+					<h:outputText
+						value="Esta seguro que desea eliminar el archivo, una vez borrado no se podra recuperar" />
+					<p></p>
+					<center>
+						<h:panelGrid columns="2">
+							<p:commandButton value="SI"
+								onclick="PF('dlgEliminar').hide();PF('statusDialog').show()"
+								action="#{capsulaGuiaView
+								.borrarDocumento}"
+								onsuccess="PF('statusDialog').hide()" update="@(form)" />
+							<p:commandButton value="NO" onclick="PF('dlgEliminar').hide()" />
+						</h:panelGrid>
+					</center>
+				</p:dialog>
+			</p:panel>
+		</h:form>
+		<style>
+.ui-chips-token-label {
+	background: #175787 !important;
+	color: #ffffff;
+}
+</style>
+	</ui:define>
+
+</ui:composition>

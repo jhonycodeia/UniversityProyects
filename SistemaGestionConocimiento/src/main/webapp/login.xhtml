@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>SENTINEL BLUE | Prime Faces Layouts Header</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        
+    <h:outputScript name="js/login.js" library="sentinel-layout" />
+    <h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
+    <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
+    <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+</h:head>
+
+<h:body class="fontRegular login-back white-back">
+    
+    <div class="Container">
+        <div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent10">
+            <a href="" id="login-logo">
+                <h:graphicImage name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout"/>
+                <span class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span class="softblue">GREEN</span><span class="hardblue">PLUS</span></span>
+            </a>
+            <div class="EmptyBox10"></div>
+        </div>
+
+        <!-- LOGIN BOX COVER START -->
+        <div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10" id="login-box">
+            <div class="Container">
+                <div class="Container100 TexAlCenter Animated05 BoxSizeBorder TabBtn left TabBtnActiveLeft" role="1">
+                    <div class="Container80 Fnone MarAuto FontBold"><i class="icon-lock"></i>Iniciar Session</div>
+                </div>
+                
+				<h:form>
+					<p:growl id="msg" />
+	                <div class="Container90 Fnone MarAuto TexAlCenter TabContent OvHidden" id="TAB1">
+	                    <div class="EmptyBox50"></div>
+	                    <p:inputText value="#{loginView.userId}" placeholder="Correo" styleClass="Container80 Fnone MarAuto Fs18"/>
+	                    <div class="EmptyBox10"></div>
+	                    <p:password value="#{loginView.password}" placeholder="Contraseña" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"/>
+	                    <div class="EmptyBox10"></div> 
+	                    <div class="Container85 Fnone MarAuto softgray">
+	                        <p:link value="¿ Create una cuenta ?" styleClass="Fleft" href="register.xhtml"/>
+	                    </div>                  
+	                    <div class="EmptyBox30"></div>
+	                    <p:commandButton value="Iniciar Session" styleClass="Fs16" update="msg"
+							action="#{loginView.login}" onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+	                    <div class="EmptyBox50"></div>
+	                </div>
+	
+	                <div class="Container90 Fnone MarAuto DispNone TexAlCenter TabContent OvHidden" id="TAB2">
+	                    <div class="EmptyBox50"></div>
+	                    <p:inputText value="#{loginView.email}" placeholder="Your Email Address" styleClass="Container80 Fnone MarAuto Fs18"/>
+	                    <div class="EmptyBox20"></div>
+	                    <p:commandButton  value="Enviar" styleClass="Fs16" update="msg"
+							action="#{loginView.resetPassword}"
+							onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()"/>
+	                    <div class="EmptyBox50"></div>
+	                </div>
+	           </h:form>
+            </div>
+        </div>
+    </div>
+    <!-- LOGIN BOX COVER END -->
+  
+	<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+		draggable="false" closable="false">
+		<p:graphicImage
+			value="https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif" />
+	</p:dialog>
+    
+    
+</h:body>
+
+</html>

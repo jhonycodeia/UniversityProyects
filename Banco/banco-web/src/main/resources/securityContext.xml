@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Author Zathuracode Generator -->
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	<http pattern="/CLIENTE/*" auto-config="true" use-expressions="true">
+     	<intercept-url pattern="/CLIENTE/" access="hasRole('ROLE_CLIENTE')"  />
+     	
+     	<form-login
+     		login-page="/login.xhtml"
+     		authentication-failure-url="/login.xhtml?authfailed=true"
+     		default-target-url="/login.xhtml"
+     		always-use-default-target="false"
+     	/>
+     	
+     	<logout invalidate-session="true" logout-success-url="/login.xhtml?Loggedout=true" logout-url="/j_spring_security_logout" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE"/>
+     <csrf disabled="true"/>
+     </http>
+
+	<http auto-config="true">
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/login.xhtml" access="permitAll" />
+		<intercept-url pattern="/CAJERO/*" access="hasRole('ROLE_CAJERO')" />
+		<intercept-url pattern="/ASESOR_COMERCIAL/*"
+			access="hasRole('ROLE_ASESOR_COMERCIAL') or hasRole('ROLE_ADMINISTRADOR')" />
+		<intercept-url pattern="/ADMINISTRADOR/*" access="hasRole('ROLE_ADMINISTRADOR')" />
+
+		<intercept-url pattern="/XHTML/*"
+			access="hasRole('ROLE_ASESOR_COMERCIAL') or hasRole('ROLE_ADMINISTRADOR') or hasRole('ROLE_CAJERO')" />
+
+		<form-login login-page="/login.xhtml"
+			authentication-failure-url="/login.xhtml?authfailed=true"
+			default-target-url="/XHTML/principal.xhtml"
+			always-use-default-target="false" />
+
+		<logout invalidate-session="true" logout-success-url="/login.xhtml?loggedout=true"
+			logout-url="/j_spring_security_logout" delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
+
+		<csrf disabled="true" />
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="bancoAutProvider" />
+		<authentication-provider ref="bancoClienteAutProvider" />
+	</authentication-manager>
+
+	<beans:bean id="bancoAutProvider"
+		class="co.edu.usbcali.banco.seguridad.BancoAutProvider"></beans:bean>
+	<beans:bean id="bancoClienteAutProvider"
+		class="co.edu.usbcali.banco.seguridad.BancoClienteAutProvider"></beans:bean>
+
+</beans:beans>

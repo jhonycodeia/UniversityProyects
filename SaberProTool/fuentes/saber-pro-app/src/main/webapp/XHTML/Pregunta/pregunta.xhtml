@@ -1,0 +1,149 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog" enctype="multipart/form-data">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelPregunta" header="Pregunta">
+				<h:panelGrid columns="2" id="panelGrid">
+					<h:outputText  value="Tipo de competencia:    ->" />	
+					<p:selectOneMenu id="somTipoModulo"  binding="#{preguntaView.somTipoModulo}">
+						<f:selectItem itemValue="0" itemLabel="---------------------------------" />
+						<f:selectItems value="#{preguntaView.lasTipoModuloSelectItem}"/>	
+						<p:ajax update="somModulo" listener="#{preguntaView.changeTipoModulo}"/>
+					</p:selectOneMenu>
+					<h:outputText  value="Módulo:" />	
+					<p:selectOneMenu id="somModulo" binding="#{preguntaView.somModulo}">
+						<f:selectItem itemValue="0" itemLabel="----------------------------------" />		
+						<f:selectItems value="#{preguntaView.lasModuloSelectItem}"/>				
+					</p:selectOneMenu>
+					<h:outputText id="msgContenido" value="Contenido de la pregunta:    ->" />					
+					<pe:ckEditor id="editor" value="#{preguntaView.content}" 
+						toolbar="[[ 'NewPage','Preview'],
+						        ['Cut', 'Copy', 'Paste', 'PasteText','SpellChecker','Scayt','-','Undo', 'Redo'], 
+             					['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat','Blockquote'], 
+             					['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'], 
+             					[ 'Link','Unlink'],
+             					[ 'Image','Table','HorizontalRule','SpecialChar','PageBreak'], 
+             					[ 'Styles','Format','Font','FontSize' ],
+             					[ 'TextColor','BGColor' ],
+             					[ 'Maximize']]"
+						skin="office2013"/>
+					<h:outputText id="msgSubirImagenP" value=" Subir imagen:  ->" />
+					<h:panelGrid columns="3">
+						<p:fileUpload  mode="simple" skinSimple="true"  value="#{preguntaView.choosePregunta}" label="Elegir imagen" allowTypes="/(\.|\/)(gif|jpe?g|png|jpg)$/"/>
+						<p:commandButton value="Subir imagen" action="#{preguntaView.subirImagenPregunta}" update="msg,panelPregunta" ajax="false"/>						
+					</h:panelGrid>
+					<h:outputText id="msgRetroalimentacion" value=" Retroalimentación :  ->" />
+					<p:inputTextarea id="txtRetroalimentacion" rows="3" cols="96" counter="display" binding="#{preguntaView.txtRetroalimentacion}"
+						maxlength="1200" counterTemplate="{0} caracteres restantes" autoResize="false"/>
+					<h:outputText value="(Opcional)" />
+					<h:outputText id="display"/>
+					<h:outputText value="Agregar respuestas: ->"/>			
+					<p:tabView>
+					 	 <p:tab title="Respuesta I">
+					 	 	<pe:ckEditor value="#{preguntaView.contentRespuesta1}" 
+								toolbar="[[ 'NewPage','Preview'],
+						        ['Cut', 'Copy', 'Paste', 'PasteText','SpellChecker','Scayt','-','Undo', 'Redo'], 
+             					['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat','Blockquote'], 
+             					['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'], 
+             					[ 'Link','Unlink'],
+             					[ 'Image','Table','HorizontalRule','SpecialChar','PageBreak'], 
+             					[ 'Styles','Format','Font','FontSize' ],
+             					[ 'TextColor','BGColor' ],
+             					[ 'Maximize']]"
+								skin="office2013"/>
+							<h:panelGrid columns="3">
+								<p:fileUpload  mode="simple" skinSimple="true" value="#{preguntaView.chooseRespuesta1}" label="Elegir imagen"/>
+								<p:commandButton value="Subir imagen" action="#{preguntaView.subirImagenRespuesta1}" update="msg,panelPregunta" binding="#{preguntaView.subirRespuesta1}" ajax="false"/>		
+																			
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<h:outputText value="Eliga el porcentaje de acierto para la respuesta, debe de estar entre 0% a 100%:"/>	
+								<p:inputNumber  minValue="0" maxValue="100" symbol="%" symbolPosition="s" size="40" binding="#{preguntaView.porcentajeAciertoRespuesta1}" />
+							</h:panelGrid>							
+					 	 </p:tab>
+					 	 <p:tab title="Respuesta II">
+						 	 <pe:ckEditor value="#{preguntaView.contentRespuesta2}" 
+									toolbar="[[ 'NewPage','Preview'],
+							        ['Cut', 'Copy', 'Paste', 'PasteText','SpellChecker','Scayt','-','Undo', 'Redo'], 
+	             					['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat','Blockquote'], 
+	             					['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'], 
+	             					[ 'Link','Unlink'],
+	             					[ 'Image','Table','HorizontalRule','SpecialChar','PageBreak'], 
+	             					[ 'Styles','Format','Font','FontSize' ],
+	             					[ 'TextColor','BGColor' ],
+	             					[ 'Maximize']]"
+									skin="office2013"/>
+								<h:panelGrid columns="3">
+									<p:fileUpload  mode="simple" skinSimple="true" value="#{preguntaView.chooseRespuesta2}" label="Elegir imagen"/>
+									<p:commandButton value="Subir imagen" action="#{preguntaView.subirImagenRespuesta2}" update="msg,panelPregunta" binding="#{preguntaView.subirRespuesta2}" ajax="false"/>		
+																				
+								</h:panelGrid>
+								<h:panelGrid columns="2">
+									<h:outputText value="Eliga el porcentaje de acierto para la respuesta, debe de estar entre 0% a 100%:"/>	
+									<p:inputNumber  minValue="0" maxValue="100" symbol="%" symbolPosition="s" size="40" binding="#{preguntaView.porcentajeAciertoRespuesta2}"/>
+								</h:panelGrid>	
+					 	 </p:tab>
+					 	 <p:tab title="Respuesta III">
+						 	 <pe:ckEditor value="#{preguntaView.contentRespuesta3}" 
+									toolbar="[[ 'NewPage','Preview'],
+							        ['Cut', 'Copy', 'Paste', 'PasteText','SpellChecker','Scayt','-','Undo', 'Redo'], 
+	             					['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat','Blockquote'], 
+	             					['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'], 
+	             					[ 'Link','Unlink'],
+	             					[ 'Image','Table','HorizontalRule','SpecialChar','PageBreak'], 
+	             					[ 'Styles','Format','Font','FontSize' ],
+	             					[ 'TextColor','BGColor' ],
+	             					[ 'Maximize']]"
+									skin="office2013"/>
+								<h:panelGrid columns="3">
+									<p:fileUpload  mode="simple" skinSimple="true" value="#{preguntaView.chooseRespuesta3}" label="Elegir imagen"/>
+									<p:commandButton value="Subir imagen" action="#{preguntaView.subirImagenRespuesta3}" update="msg,panelPregunta" binding="#{preguntaView.subirRespuesta3}" ajax="false"/>		
+																					
+								</h:panelGrid>
+								<h:panelGrid columns="2">
+									<h:outputText value="Eliga el porcentaje de acierto para la respuesta, debe de estar entre 0% a 100%:"/>	
+									<p:inputNumber  minValue="0" maxValue="100" symbol="%" symbolPosition="s" size="40" binding="#{preguntaView.porcentajeAciertoRespuesta3}"/>
+								</h:panelGrid>	
+					 	 </p:tab>
+					 	 <p:tab title="Respuesta IV">
+						 	 <pe:ckEditor value="#{preguntaView.contentRespuesta4}" 
+									toolbar="[[ 'NewPage','Preview'],
+							        ['Cut', 'Copy', 'Paste', 'PasteText','SpellChecker','Scayt','-','Undo', 'Redo'], 
+	             					['Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat','Blockquote'], 
+	             					['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock','-','BidiLtr','BidiRtl'], 
+	             					[ 'Link','Unlink'],
+	             					[ 'Image','Table','HorizontalRule','SpecialChar','PageBreak'], 
+	             					[ 'Styles','Format','Font','FontSize' ],
+	             					[ 'TextColor','BGColor' ],
+	             					[ 'Maximize']]"
+									skin="office2013"/>
+								<h:panelGrid columns="3">
+									<p:fileUpload  mode="simple" skinSimple="true" value="#{preguntaView.chooseRespuesta4}" label="Elegir imagen"/>
+									<p:commandButton value="Subir imagen" action="#{preguntaView.subirImagenRespuesta4}" update="msg,panelPregunta" binding="#{preguntaView.subirRespuesta4}" ajax="false"/>		
+																				
+								</h:panelGrid>
+								<h:panelGrid columns="2">
+									<h:outputText value="Eliga el porcentaje de acierto para la respuesta, debe de estar entre 0% a 100%:"/>	
+									<p:inputNumber  minValue="0" maxValue="100" symbol="%" symbolPosition="s" size="40" binding="#{preguntaView.porcentajeAciertoRespuesta4}"/>
+								</h:panelGrid>	
+					 	 </p:tab>
+					 </p:tabView>						
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<p:commandButton value="Crear" action="#{preguntaView.action_create}" update="panelPregunta,men,msg" binding="#{preguntaView.crear}"/>	
+					<p:commandButton value="Actualizar" action="#{preguntaView.action_modify}" update="panelPregunta,men,msg" disabled="#{preguntaView.cargo}" binding="#{preguntaView.actualizar}"/>
+					<p:commandButton value="Limpiar" action="#{preguntaView.action_clear}" update="panelPregunta,men,msg"/>
+					<p:commandButton binding="#{preguntaView.cargar}" style="display:none;"/>
+				</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

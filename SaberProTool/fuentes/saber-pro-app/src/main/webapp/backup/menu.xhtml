@@ -1,0 +1,134 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ps="http://primefaces.org/sentinel"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+	<h:form id="menuform">
+
+		<p:menubar toggleable="true">
+
+			<p:submenu label="Master" icon="ui-icon-pencil">
+
+				<p:menuitem value="Master Modulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/modulo.xhtml" />
+				<p:menuitem value="Master TipoUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoUsuario.xhtml" />
+				<p:menuitem value="Master EstadoPrueba"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/estadoPrueba.xhtml" />
+				<p:menuitem value="Master Respuesta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/respuesta.xhtml" />
+				<p:menuitem value="Master ResultadoReal"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/resultadoReal.xhtml" />
+				<p:menuitem value="Master PruebaModulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaModulo.xhtml" />
+				<p:menuitem value="Master PruebaProgramaUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaProgramaUsuario.xhtml" />
+				<p:menuitem value="Master Pregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pregunta.xhtml" />
+				<p:menuitem value="Master ProgramaModulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/programaModulo.xhtml" />
+				<p:menuitem value="Master Parametro"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/parametro.xhtml" />
+				<p:menuitem value="Master PruebaProgramaUsuarioPregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaProgramaUsuarioPregunta.xhtml" />
+				<p:menuitem value="Master TipoPregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoPregunta.xhtml" />
+				<p:menuitem value="Master Usuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/usuario.xhtml" />
+				<p:menuitem value="Master TipoPrueba"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoPrueba.xhtml" />
+				<p:menuitem value="Master Matricula"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/matricula.xhtml" />
+				<p:menuitem value="Master Facultad"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/facultad.xhtml" />
+				<p:menuitem value="Master RespuestaPruebaProgramaUsuarioPregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/respuestaPruebaProgramaUsuarioPregunta.xhtml" />
+				<p:menuitem value="Master PruebaReal"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaReal.xhtml" />
+				<p:menuitem value="Master Permiso"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/permiso.xhtml" />
+				<p:menuitem value="Master GrupoOpcion"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/grupoOpcion.xhtml" />
+				<p:menuitem value="Master Prueba"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/prueba.xhtml" />
+				<p:menuitem value="Master Imagen"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/imagen.xhtml" />
+				<p:menuitem value="Master Opcion"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/opcion.xhtml" />
+				<p:menuitem value="Master TipoModulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoModulo.xhtml" />
+				<p:menuitem value="Master Programa"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/programa.xhtml" />
+				<p:menuitem value="Master ProgramaUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/programaUsuario.xhtml" />
+			</p:submenu>
+
+
+
+			<p:submenu label="Data Table" icon="ui-icon-document">
+				<p:menuitem value="Modulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/moduloListDataTable.xhtml" />
+				<p:menuitem value="TipoUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoUsuarioListDataTable.xhtml" />
+				<p:menuitem value="EstadoPrueba"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/estadoPruebaListDataTable.xhtml" />
+				<p:menuitem value="Respuesta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/respuestaListDataTable.xhtml" />
+				<p:menuitem value="ResultadoReal"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/resultadoRealListDataTable.xhtml" />
+				<p:menuitem value="PruebaModulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaModuloListDataTable.xhtml" />
+				<p:menuitem value="PruebaProgramaUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaProgramaUsuarioListDataTable.xhtml" />
+				<p:menuitem value="Pregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/preguntaListDataTable.xhtml" />
+				<p:menuitem value="ProgramaModulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/programaModuloListDataTable.xhtml" />
+				<p:menuitem value="Parametro"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/parametroListDataTable.xhtml" />
+				<p:menuitem value="PruebaProgramaUsuarioPregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaProgramaUsuarioPreguntaListDataTable.xhtml" />
+				<p:menuitem value="TipoPregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoPreguntaListDataTable.xhtml" />
+				<p:menuitem value="Usuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/usuarioListDataTable.xhtml" />
+				<p:menuitem value="TipoPrueba"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoPruebaListDataTable.xhtml" />
+				<p:menuitem value="Matricula"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/matriculaListDataTable.xhtml" />
+				<p:menuitem value="Facultad"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/facultadListDataTable.xhtml" />
+				<p:menuitem value="RespuestaPruebaProgramaUsuarioPregunta"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/respuestaPruebaProgramaUsuarioPreguntaListDataTable.xhtml" />
+				<p:menuitem value="PruebaReal"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaRealListDataTable.xhtml" />
+				<p:menuitem value="Permiso"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/permisoListDataTable.xhtml" />
+				<p:menuitem value="GrupoOpcion"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/grupoOpcionListDataTable.xhtml" />
+				<p:menuitem value="Prueba"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/pruebaListDataTable.xhtml" />
+				<p:menuitem value="Imagen"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/imagenListDataTable.xhtml" />
+				<p:menuitem value="Opcion"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/opcionListDataTable.xhtml" />
+				<p:menuitem value="TipoModulo"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/tipoModuloListDataTable.xhtml" />
+				<p:menuitem value="Programa"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/programaListDataTable.xhtml" />
+				<p:menuitem value="ProgramaUsuario"
+					url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/XHTML/programaUsuarioListDataTable.xhtml" />
+			</p:submenu>
+
+			<p:menuitem value="Logout"
+				url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+				icon="ui-icon-close" />
+
+		</p:menubar>
+	</h:form>
+</ui:composition>

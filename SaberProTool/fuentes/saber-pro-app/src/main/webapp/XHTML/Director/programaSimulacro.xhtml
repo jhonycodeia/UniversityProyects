@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelProgramaSimulacro" header="Creación de simulacro">
+				<h:panelGrid columns="2" id="panelGrid">
+					<p:outputLabel value="Facultad  :" />
+					<p:outputLabel value="#{datosSessionView.facultad.nombre}" />
+					<p:outputLabel value="Programa académico  :" />
+					<p:outputLabel value="#{datosSessionView.programa.nombre}" />
+					<p:outputLabel value="Fecha de inicio  :" />
+					<p:calendar showOn="button"
+						value="#{programaSimulacroView.fechaInicial}" />
+					<p:outputLabel value="Fecha de finalización  :" />
+					<p:calendar showOn="button"
+						value="#{programaSimulacroView.fechaFinal}" />
+					<p:outputLabel value="Duración del simulacro  :" />
+					<p:calendar pattern="HH:mm" showOn="button" timeOnly="true"
+						value="#{programaSimulacroView.tiempo}" />
+				</h:panelGrid>
+				<p:panel header="Estudiantes ">
+
+					<p:pickList value="#{programaSimulacroView.usuarios}" var="usuario"
+						converter="moduloPickListConverter"
+						itemLabel="#{usuario.codigo} #{usuario.nombre} #{usuario.apellido}"
+						itemValue="#{usuario}" showCheckbox="true" responsive="true"
+						showSourceFilter="true" showTargetFilter="true"
+						filterMatchMode="contains">
+						<f:facet name="sourceCaption">Escoger</f:facet>
+						<f:facet name="targetCaption">Seleccionados</f:facet>
+					</p:pickList>
+					<p:commandButton id="btnSave"
+						binding="#{programaSimulacroView.btnSave}" value="Crear simulacro"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						update="panelProgramaSimulacro,msg,panelTable"
+						action="#{programaSimulacroView.action_create}" />
+					<p:commandButton value="Actualizar simulacro" disabled="true"
+						binding="#{programaSimulacroView.btnUpdate}"
+						action="#{programaSimulacroView.updateSimulacro}"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						update="panelProgramaSimulacro,msg,panelTable" />
+					<p:commandButton value="Limpiar"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{programaSimulacroView.limpiar}"
+						update="panelProgramaSimulacro,msg,panelTable" />
+				</p:panel>
+
+				<p:panel id="panelTable">
+					<div>
+						<p:dataTable id="dataPrueba" value="#{programaSimulacroView.data}"
+							var="prueba" reflow="true" resizableColumns="true"
+							scrollable="true" scrollHeight="300" widgetVar="modTable">
+							<p:column headerText="Fecha inicial">
+								<p:outputLabel value="#{prueba.fechaInicial}" />
+							</p:column>
+							<p:column headerText="Fecha final">
+								<p:outputLabel value="#{prueba.fechaFinal}" />
+							</p:column>
+							<p:column headerText="Tiempo (minutos)">
+								<p:outputLabel value="#{prueba.tiempo/60}" />
+							</p:column>
+							<p:column headerText="Editar">
+								<p:commandButton value="editar"
+									action="#{programaSimulacroView.editar(prueba.idPrueba)}"
+									update="formDialog" />
+							</p:column>
+
+						</p:dataTable>
+					</div>
+				</p:panel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

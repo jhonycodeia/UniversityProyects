@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">	
+			<h:form id="formDialog">
+				<p:messages id="msg" />
+				<p:growl id="men"/>
+					<p:panel id="panelSaludo" header="Saludo">							
+						<h:panelGrid columns="2" id="panelGrid" >
+												 	<h:outputText id="msgIdSaludo" value="IdSaludo"/>
+						 	<p:inputText id="txtIdSaludo" binding="#{saludoView.txtIdSaludo}">
+						 		<p:ajax update="panelSaludo,msg,panelBotones" listener="#{saludoView.listener_txtId}"/>
+						 	</p:inputText>	
+																		
+													<h:outputText id="msgSaludo" value=" Saludo"/>
+							<p:inputText id="txtSaludo" disabled="true" binding="#{saludoView.txtSaludo}"/>
+													<h:outputText id="msgIdIdioma_Idioma" value=" IdIdioma_Idioma"/>
+							<p:inputText id="txtIdIdioma_Idioma" disabled="true" binding="#{saludoView.txtIdIdioma_Idioma}"/>
+												
+										   </h:panelGrid>
+				</p:panel>
+	   			<p:panel id="panelBotones">
+					<div align="center">					
+						<p:commandButton id="btnSave" binding="#{saludoView.btnSave}" disabled="true" value="Save" action="#{saludoView.action_save()}" update="panelSaludo,msg,panelBotones" />
+						<p:commandButton id="btnDelete" binding="#{saludoView.btnDelete}" disabled="true" value="Delete" action="#{saludoView.action_delete_master()}" onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}" update="panelSaludo,msg,panelBotones" />
+						<p:commandButton id="btnClear" value="Clear" action="#{saludoView.action_clear()}" update="panelSaludo,msg,panelBotones" />
+					</div>
+				</p:panel>			
+			</h:form>
+  </ui:define>
+</ui:composition>

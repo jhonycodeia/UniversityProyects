@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="saber-pro-appPU"
+        transaction-type="RESOURCE_LOCAL">
+        
+                    <class>com.saberpro.modelo.Modulo</class>
+                                <class>com.saberpro.modelo.TipoUsuario</class>
+                                <class>com.saberpro.modelo.EstadoPrueba</class>
+                                <class>com.saberpro.modelo.Respuesta</class>
+                                <class>com.saberpro.modelo.ResultadoReal</class>
+                                <class>com.saberpro.modelo.PruebaModulo</class>
+                                <class>com.saberpro.modelo.PruebaProgramaUsuario</class>
+                                <class>com.saberpro.modelo.Pregunta</class>
+                                <class>com.saberpro.modelo.ProgramaModulo</class>
+                                <class>com.saberpro.modelo.Parametro</class>
+                                <class>com.saberpro.modelo.PruebaProgramaUsuarioPregunta</class>
+                                <class>com.saberpro.modelo.TipoPregunta</class>
+                                <class>com.saberpro.modelo.Usuario</class>
+                                <class>com.saberpro.modelo.TipoPrueba</class>
+                                <class>com.saberpro.modelo.Matricula</class>
+                                <class>com.saberpro.modelo.Facultad</class>
+                                <class>com.saberpro.modelo.RespuestaPruebaProgramaUsuarioPregunta</class>
+                                <class>com.saberpro.modelo.PruebaReal</class>
+                                <class>com.saberpro.modelo.Permiso</class>
+                                <class>com.saberpro.modelo.GrupoOpcion</class>
+                                <class>com.saberpro.modelo.Prueba</class>
+                                <class>com.saberpro.modelo.Imagen</class>
+                                <class>com.saberpro.modelo.Opcion</class>
+                                <class>com.saberpro.modelo.TipoModulo</class>
+                                <class>com.saberpro.modelo.Programa</class>
+                                <class>com.saberpro.modelo.ProgramaUsuario</class>
+                          
+        <properties>
+            <property name="hibernate.connection.driver_class"
+                value="org.postgresql.Driver" />
+             <property name="hibernate.connection.url"
+                    value="jdbc:postgresql://127.0.0.1:5432/Saberpro" />
+             <property name="hibernate.connection.username" value="saberprotool" />
+             <property name="hibernate.connection.password" value="saberpro" />
+        </properties>
+     
+    </persistence-unit>
+</persistence>

@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:growl id="men" />
+			<p:panel id="panelRegistroCalculo" header="REGISTRAR CALCULO">
+				<h:panelGrid columns="2" id="panelGrid">
+					<p:outputLabel value="LIMITE"/>
+					<p:inputText value="#{registroCalculoView.entity.limite}"/>
+					<p:outputLabel value="USUARIO"/>
+					<p:inputText value="#{registroCalculoView.entity.usuario}"/>
+					<p:outputLabel/>
+					<p:commandButton value="Calcular" action="#{registroCalculoView.calcular}" update="panelRegistroCalculo,men"/>
+					<p:outputLabel value="RESULTADO:"/>
+					<p:outputLabel value="#{registroCalculoView.entity.resultado}"/>
+				</h:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

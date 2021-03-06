@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form>
+		<div id="layout-header" class="Unselectable fontRegular">
+			<a href="dashboard.xhtml" id="layout-logo"> <h:graphicImage
+					name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout" />
+				<span class="Fs19 FontTitilliumSemiBoldItalic Fleft"><span
+					class="softblue">GREEN</span><span class="hardblue">PLUS</span></span>
+			</a>
+			<ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+				<li class="Fleft BordRadHalf TexAlCenter"><i
+					class="icon-user-male"></i>
+					<ul
+						class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+						<li class="Animated05"><a class="white Unselectable"><i
+								class="icon-user-male Fs26 OvHidden"></i><span class="Fs18">#{datosView.name}<br />
+									<span class="Fs10">Puntos:#{datosView.puntos}</span>
+							</span></a></li>
+
+					</ul></li>
+				<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-mail"></i>
+					<p:outputLabel rendered="#{datosView.tieneComentarios}">
+						<span class="alertBubble BordRad10 Fs9">#{datosView.comentarios}</span>
+					</p:outputLabel>
+
+						<ul
+							class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+
+							<p:dataList value="#{datosView.listComentarios}" var="com" rendered="#{datosView.tieneComentarios}">
+
+								<li class="Animated05"><a
+									href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}#{com.valor}"
+									class="white Unselectable TexAlRight"><i
+										class="icon-chat-empty yellow"></i> <span class="Fs10">#{com.nombre}</span></a></li>
+
+							</p:dataList>
+
+
+						</ul>
+					</li>
+				<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-bell"></i>
+					<p:outputLabel rendered="#{datosView.tieneCapsulas}">
+						<span class="alertBubble BordRad10 Fs9">#{datosView.capsula}</span>
+					</p:outputLabel>
+					
+						<ul
+							class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+						
+							<p:dataList value="#{datosView.listCapsulas}" var="com" rendered="#{datosView.tieneCapsulas}">
+								<li class="Animated05"><a
+									href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}#{com.valor}"
+									class="white Unselectable TexAlRight"><i
+										class="icon-flag red"></i>#{com.nombre}</a></li>
+							</p:dataList>
+						
+						</ul>
+					
+					</li>
+				<li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
+					<ul
+						class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+						<li class="Animated05"><a
+							href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+							class="white Unselectable"><i class="icon-logout"></i>Cerrar
+								Sesión</a></li>
+					</ul></li>
+			</ul>
+			<!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+			<ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+				<li
+					class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i
+					class="icon-th-1"></i></li>
+			</ul>
+			<!-- ****** -->
+		</div>
+	</h:form>
+
+</ui:composition>

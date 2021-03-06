@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+
+	</h:head>
+	
+	<h:body>
+		<h:form>
+			<p:dataTable id="dataCliente" value="#{clienteVista.losClientes}" var="cliente">
+				<p:column headerText="ID">
+					<p:outputLabel value="#{cliente.clieId}" />
+				</p:column>
+				<p:column headerText="NOMBRE">
+					<p:outputLabel value="#{cliente.nombre}" />
+				</p:column>
+				<p:column headerText="TELEFONO">
+					<p:outputLabel value="#{cliente.telefono}" />
+				</p:column>
+				<p:column headerText="ACTIVO">
+					<p:outputLabel value="#{cliente.activo}" />
+				</p:column>
+				<p:column headerText="EMAIL">
+					<p:outputLabel value="#{cliente.email}" />
+				</p:column>
+		
+			</p:dataTable>
+		</h:form>	
+	</h:body>
+</html>

@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+		
+	</h:head>
+	
+	<h:body>
+		<h:form>
+			<p:panel id="pnlUsuario" header="Gestion Usuario">
+				<p:growl/>
+				<h:panelGrid columns="2">
+					
+					<p:outputLabel value="Username:" />
+					<p:inputText id="txtId" binding="#{usuarioVista.txtId}">
+						<p:ajax listener="#{usuarioVista.txtIdListener}" update="pnlUsuario"/>
+					</p:inputText>
+					
+					<p:outputLabel value="Tipo Usuario:" />
+					<p:selectOneMenu id="somTipoUsuario" binding="#{usuarioVista.somTipoUsuario}">
+						<f:selectItem itemValue="-1" itemLabel="-------------------" />		
+						<f:selectItems value="#{usuarioVista.losTipoUsuarioSelectItem}"/>				
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Clave:" />
+					<p:inputText id="txtClave" binding="#{usuarioVista.txtClave}"/>
+					
+					<p:outputLabel value="Identificacion:" />
+					<p:inputText id="txtIdentificacion" binding="#{usuarioVista.txtIdentificacion}"/>
+					
+					<p:outputLabel value="Nombre:" />
+					<p:inputText id="txtNombre" binding="#{usuarioVista.txtNombre}"/>
+					
+					<p:outputLabel value="Activo:" />
+					<p:selectOneMenu id="somActivo" binding="#{usuarioVista.somActivo}">
+							<f:selectItem itemValue="-1" itemLabel="-------------------" />
+							<f:selectItem itemValue="S" itemLabel="SI" />
+							<f:selectItem itemValue="N" itemLabel="NO" />
+					</p:selectOneMenu>				
+				</h:panelGrid>
+				<h:panelGrid columns="4">
+					<p:commandButton update="pnlUsuario" action="#{usuarioVista.crearAction}" binding="#{usuarioVista.btnCrear}" disabled="true"  id="btnCrear" value="Crear"/>
+					<p:commandButton update="pnlUsuario" action="#{usuarioVista.updateAction}" binding="#{usuarioVista.btnModificar}" disabled="true"  id="btnModifcar" value="Modificar"/>
+					<p:commandButton update="pnlUsuario" action="#{usuarioVista.deleteAction}" binding="#{usuarioVista.btnBorrar}" disabled="true"  id="btnBorrar" value="Borrar"/>
+					<p:commandButton update="pnlUsuario" action="#{usuarioVista.limpiarAction}" binding="#{usuarioVista.btnLimpiar}" disabled="false" id="btnLimpiar" value="Limpiar"/>
+				</h:panelGrid>
+			</p:panel>
+			<p:dataTable id="dataUsuario" value="#{usuarioVista.losUsuarios}" var="usuario" reflow="true" resizableColumns="true"
+			rows="10" paginator="true" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rowsPerPageTemplate="10,50,100" scrollable="true" scrollHeight="300">
+				<p:column headerText="ID">
+					<p:outputLabel value="#{usuario.usuUsuario}" />
+				</p:column>				
+				<p:column headerText="IDENTIFICACION">
+					<p:outputLabel value="#{usuario.identificacion}" />
+				</p:column>
+				<p:column headerText="NOMBRE">
+					<p:outputLabel value="#{usuario.nombre}" />
+				</p:column>
+				<p:column headerText="ACTIVO">
+					<p:outputLabel value="#{usuario.activo}" />
+				</p:column>
+				<p:column headerText="CONSTRASEÑA">
+					<p:outputLabel value="#{usuario.clave}" />
+				</p:column>				
+				<!--  p:column headerText="Tipo de usuario">
+					<p:outputLabel value="#{usuario.tipoUsuario.nombre}" />
+				</p:column-->				
+			</p:dataTable>
+			
+		</h:form>	
+		
+		
+	</h:body>
+</html>

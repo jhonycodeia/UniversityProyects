@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelUsuario" header="Usuario">
+				<h:panelGrid columns="4" id="panelGrid">
+					<h:outputText value=" Código" />
+					<p:inputText binding="#{usuarioView.txtCodigo}" size="30">
+						<p:keyFilter regEx="/[0-9]/" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.listener_txtId}" />
+					</p:inputText>
+					<h:outputText value=" Identificación" />
+					<p:inputText binding="#{usuarioView.txtIdentificacion}" size="30">
+						<p:keyFilter regEx="/[0-9]/" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:inputText>
+					<h:outputText value=" Nombre" />
+					<p:inputText binding="#{usuarioView.txtNombre}" size="30">
+						<p:keyFilter regEx="/[a-zA-Z ]/" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:inputText>
+					<h:outputText value=" Apellido" />
+					<p:inputText binding="#{usuarioView.txtApellido}" size="30">
+						<p:keyFilter regEx="/[a-zA-Z ]/" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:inputText>
+					<h:outputText value=" Celular" />
+					<p:inputText binding="#{usuarioView.txtCelular}" size="30">
+						<p:keyFilter regEx="/[0-9]/" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:inputText>
+					<h:outputText value=" Correo" />
+					<p:inputText binding="#{usuarioView.txtCorreo}" size="30">
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:inputText>
+					<h:outputText value=" Género" />
+					<p:selectOneMenu binding="#{usuarioView.somGenero}">
+						<f:selectItem itemValue="#{null}"
+							itemLabel="---------------------" />
+						<f:selectItem itemValue="M" itemLabel="Masculino" />
+						<f:selectItem itemValue="F" itemLabel="Femenino" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:selectOneMenu>
+					<h:outputText value="Facultad" />
+					<p:selectOneMenu binding="#{usuarioView.somFacultas}">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItems value="#{usuarioView.losFacultadSelectItem}" />
+						<p:ajax update="somProgramas"
+							listener="#{usuarioView.changeFacultad}" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:selectOneMenu>
+					<h:outputText value="Programa" />
+					<p:selectOneMenu id="somProgramas"
+						binding="#{usuarioView.somPrograma}">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItems value="#{usuarioView.losProgramasSelectItem}" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:selectOneMenu>
+					<h:outputText value="Tipo de usuario"
+						rendered="#{usuarioView.mostrarTipo}" />
+					<p:selectOneMenu binding="#{usuarioView.somTipoUsuario}"
+						rendered="#{usuarioView.mostrarTipo}">
+						<f:selectItem itemValue="#{null}" itemLabel="-------------------" />
+						<f:selectItems value="#{usuarioView.losTipoUsuarioSelectItem}" />
+						<p:ajax update="panelUsuario,msg"
+							listener="#{usuarioView.action_validar}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<div>
+					<p:commandButton binding="#{usuarioView.btnSave}"
+						action="#{usuarioView.action_create()}" disabled="true"
+						value="Guardar" onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" update="panelUsuario,msg" />
+					<p:commandButton binding="#{usuarioView.btnModify}"
+						action="#{usuarioView.action_modify()}" disabled="true"
+						value="Actualizar" onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()" update="panelUsuario,msg" />
+					<p:commandButton id="btnClear" value="Limpiar"
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{usuarioView.action_clear()}" update="panelUsuario,msg" />
+				</div>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

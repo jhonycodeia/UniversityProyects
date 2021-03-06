@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:outputScript name="jquery/jquery.js" library="primefaces"
+			target="head" />
+
+		<h3 class="hardblue TexAlCenter">Recompensas</h3>
+		<span class="TexAlCenter DispBlock Wid100">Puedes visualizar
+			las recompensas que puedes reclamar con tus puntos y tus recompensas</span>
+
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="men" />
+			<p:tabView>
+				<p:tab title="Recompensas">
+					<p:panel>
+						<p:dataList value="#{recompensaView.listRecompensas}" var="ref"
+							type="definition">
+							<div class="Container25 Responsive">
+								<div class="ContainerIndent">
+									<p:panel>
+										<div class="Wid100 TexAlCenter">
+											<div class="ContainerIndent">
+												<p:graphicImage
+													value="#{recompensaView.getRecompensa(ref.idRecompensa)}"
+													styleClass="Wid80" stream="false" />
+												<div class="EmptyBox10"></div>
+												<span class="Fs20 DispBlock hardblue">Puntos :
+													#{ref.requisito} <br />
+												</span>
+												<p:commandButton value="Reclamar"
+													action="#{recompensaView.openModal(ref.idRecompensa)}"
+													update="form:id_reclamar,form:id_no_reclamar" />
+											</div>
+										</div>
+									</p:panel>
+								</div>
+							</div>
+						</p:dataList>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Mis Recompensas">
+					<p:panel>
+						<p:dataTable var="car" value="#{recompensaView.listMisRecompensas}">
+							<p:column headerText="Recompensa">
+								<h:outputText value="#{car.nombre}" />
+							</p:column>							
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+			</p:tabView>
+			<p:dialog id="id_reclamar" header="Reclama tu recompensa"
+				widgetVar="dlg1" modal="true" height="100">
+				<h:outputText value="#{recompensaView.nombreRecompensa}" />
+				<center>
+					<p:commandButton value="SI"
+						action="#{recompensaView.reclamarRecompensa}"
+						onsuccess="PF('statusDialog').hide()" update="form:men"
+						onclick="PF('dlg1').hide();PF('statusDialog').show();" />
+					<p:commandButton value="NO" onclick="PF('dlg1').hide();" />
+				</center>
+				<br></br>
+				<br></br>
+			</p:dialog>
+			<p:dialog id="id_no_reclamar" header="Sigue ganado puntos"
+				widgetVar="dlg2" modal="true" height="100">
+				<h:outputText
+					value="no puedes reclamar esta recompensa te faltan #{recompensaView.puntos} puntos" />
+				<br></br>
+				<br></br>
+				<center>
+					<p:commandButton value="Cerrar" onclick="PF('dlg2').hide();" />
+				</center>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

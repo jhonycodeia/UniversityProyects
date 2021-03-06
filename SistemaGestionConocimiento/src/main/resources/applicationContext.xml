@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--Author Zathuracode Generator -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<bean id="entityManagerFactory"	class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		 <property name="persistenceUnitName" value="greenPU" />			
+	</bean>
+	
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<!-- bean encargado de la envio de correos electronicos -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- SMTP settings -->
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="saberprotool@gmail.com" />
+		<property name="password" value="Saber12345" />
+		<property name="javaMailProperties">
+			<!-- additional properties specific to JavaMail -->
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- bean que se conecta con amazon -->
+	<bean class="com.vortexbird.aws.s3.VortexAWSCredentials" id="vortexAWSCredentials">
+     	<property name="AWSAccessKeyId" value=""/>
+     	<property name="AWSSecretKey" 	value=""/>
+     	<property name="region" 		value="us-east-1"/>
+     </bean>
+
+	<!-- bean encargado de la encriptacion y comparacion de claves de los usuario -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder">
+	</bean>	
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<context:component-scan base-package="com" scoped-proxy="interfaces" />
+	
+	<import resource="classpath:aopContext.xml" />
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+	<jpa:repositories base-package="com.green.repository" base-class="com.green.repository.JpaGenericRepositoryImpl"/>
+	
+</beans>

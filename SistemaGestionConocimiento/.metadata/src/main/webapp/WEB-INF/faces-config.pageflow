@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15521845033100" configfile="/green/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf15521847886461" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15521847886462 pf15521847886463" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dashboard.xhtml" id="pf15521847886464" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf15521847886462 pf15521847886465" path="/dashboard.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml?authfailed=true" id="pf15521847886466" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15521847886463" path="/login.xhtml?authfailed=true"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" id="pf15521847886477" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf15521847886465 pf15521847886478" path="/*"/>
+  <nodes xsi:type="pageflow:PFPage" name="font-icons.xhtml" id="pf15521847886479" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf15521847886478" path="/font-icons.xhtml"/>
+  <links id="pf15521847886462" target="pf15521847886464" source="pf15521847886461" outcome="exito"/>
+  <links id="pf15521847886463" target="pf15521847886466" source="pf15521847886461" outcome="error" redirect="true"/>
+  <links id="pf15521847886465" target="pf15521847886464" source="pf15521847886477" outcome="dashboard"/>
+  <links id="pf15521847886478" target="pf15521847886479" source="pf15521847886477" outcome="font-icons.xhtml"/>
+</pageflow:Pageflow>

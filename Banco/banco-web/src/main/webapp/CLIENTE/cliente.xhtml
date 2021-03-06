@@ -1,0 +1,188 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Portal Cliente</title>
+	<meta name="content-type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:panel id="pnlCliente" header="Panel Cliente">
+			<p:outputLabel value="#{clienteVista.nombreCliente}"/>
+
+			<a
+				href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+				style="float: right; display: block; padding: 20px;"> Cerrar
+				Session </a>
+			
+			<h3>Portal Cliente</h3>
+			<p:outputLabel value="Identificacion:" />
+			<p:inputText disabled="true" value="#{clienteVista.txtClienId}" />			
+			<p:tabView orientation="left">
+				<p:tab title="Perfil">
+					<p:panel header="Mis Datos" id="pnlDatos">
+						<p:growl id="messagecliente"/>
+						<h:panelGrid columns="4">
+							<p:outputLabel value="Nombre: " />
+							<p:inputText disabled="true"
+								value="#{clienteVista.txtClienNombre}" />
+
+							<p:outputLabel value="Direccion: " />
+							<p:inputText value="#{clienteVista.txtClienDireccion}" />
+
+							<p:outputLabel value="Telefono: " />
+							<p:inputText value="#{clienteVista.txtClienTelefono}" />
+
+							<p:outputLabel value="Correo: " />
+							<p:inputText value="#{clienteVista.txtClienCorreo}" />
+
+							<p:outputLabel />
+							<p:commandButton value="Actulizar mis datos"
+								action="#{clienteVista.actualizarCliente}" update="pnlDatos" />
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Cuentas">
+					<p:panel header="Mis Cuentas" id="pnlCuenta">
+						<p:growl />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Numero de Cuenta :" />
+							<p:inputText binding="#{clienteVista.txtCuenId}" id="txtCuenId">
+								<p:ajax listener="#{clienteVista.listernerIdCuenta}"
+									update="pnlCuenta" />
+							</p:inputText>
+
+							<p:outputLabel value="Cambiar Clave :" />
+							<p:password disabled="true"
+								binding="#{clienteVista.txtCuenPass1}" id="txtCuenPass1" />
+
+							<p:outputLabel value="Repetir Clave :" />
+							<p:password disabled="true"
+								binding="#{clienteVista.txtCuenPass2}" id="txtCuenPass2" />
+							<p:outputLabel />
+							<p:commandButton value="Guardar Clave" disabled="true"
+								binding="#{clienteVista.btnGuardarPass}"
+								action="#{clienteVista.cambiarClaveCuenta}" update="pnlCuenta" />
+
+						</h:panelGrid>
+						<p:dataTable id="dataCuenta" value="#{clienteVista.lasCuentas}"
+							var="cuenta" scrollable="true" resizableColumns="true">
+							<p:column headerText="Numero">
+								<p:outputLabel value="#{cuenta.cuenId}" />
+							</p:column>
+							<p:column headerText="Clave">
+								<p:outputLabel value="#{cuenta.clave}" />
+							</p:column>
+							<p:column headerText="Saldo">
+								<p:outputLabel value="#{cuenta.saldo}" />
+							</p:column>
+							<p:column headerText="Activa">
+								<p:outputLabel value="#{cuenta.activa}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Transacciones">
+					<p:panel header="Mis transacciones" id="pnlTransaccion">
+						<p:growl />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Numero de Cuenta :" />
+							<p:selectOneMenu binding="#{clienteVista.somCuentaCliente}"
+								id="somCuentaCliente">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItems value="#{clienteVista.lasCuentasCliente}" />
+								<p:ajax listener="#{clienteVista.listenerCuentaTransaccion}"
+									update="pnlTransaccion" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<p:panel header="Transaccionde por cuenta">
+							<p:dataTable id="dataTransaccion" scrollable="true"
+								value="#{clienteVista.lasTransacciones}" resizableColumns="true"
+								var="tran">
+								<p:column headerText="Fecha">
+									<p:outputLabel value="#{tran.fecha}" />
+								</p:column>
+								<p:column headerText="Saldo">
+									<p:outputLabel value="#{tran.valor}" />
+								</p:column>
+								<p:column headerText="Tipo transaccion">
+									<p:outputLabel value="#{tran.tipoTransaccion.nombre}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Cuentas Registradas">
+					<p:panel header="Cuenta registrada" id="pnlCuentaRegistrada">
+						<p:growl />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Tipo Documento" />
+							<p:selectOneMenu
+								binding="#{clienteVista.somTipoDocumentoRegistrar}"
+								id="somTipoDocumentoRegistrar">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItems
+									value="#{clienteVista.losTipoDocumentoSelectItem}" />
+							</p:selectOneMenu>
+							<p:outputLabel value="Identificacion" />
+							<p:inputText binding="#{clienteVista.txtIdentificacionRegistrar}"
+								id="txtIdentificacionRegistrar" />
+
+							<p:outputLabel value="Numero Cuenta" />
+							<p:inputText binding="#{clienteVista.txtCuentaRegistrar}"
+								id="txtCuentaRegistrar" />
+
+							<p:outputLabel />
+							<p:commandButton value="Registrar cuenta"
+								action="#{clienteVista.registrarCuenta}"
+								update="pnlCuentaRegistrada,pnlTrasferencias" />
+						</h:panelGrid>
+						<p:panel header="Cuentas Registradas">
+							<p:dataTable id="dataCuentasRegistradas" scrollable="true"
+								value="#{clienteVista.lasCuentasRegistradas}"
+								resizableColumns="true" var="cue">
+								<p:column headerText="Numero">
+									<p:outputLabel value="#{cue.cuenta.cuenId}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Trasferencias">
+					<p:panel header="Trasferencia" id="pnlTrasferencias">
+						<p:growl />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Cuenta Origen" />
+							<p:selectOneMenu binding="#{clienteVista.somCuentaOrigen}"
+								id="somCuentaOrigen">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItems
+									value="#{clienteVista.lasCuentasClienteRegistradasOnly}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Cuenta Destino" />
+							<p:selectOneMenu binding="#{clienteVista.somCuentaDestino}"
+								id="somCuentaDestino">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItems
+									value="#{clienteVista.lasCuentasClienteRegistradas}" />
+							</p:selectOneMenu>
+							
+							<p:outputLabel value="Cantidad de dinero"/>
+							<p:inputNumber binding="#{clienteVista.txtValorTrasferencia}" id="txtValorTrasferencia"/>
+							
+							<p:outputLabel/>
+							<p:commandButton update="pnlTrasferencias" value="Realizar Trasferencia" action="#{clienteVista.trasferencia}"/>
+						</h:panelGrid>
+					</p:panel>
+				</p:tab>
+			</p:tabView>
+		</p:panel>
+	</h:form>
+
+
+</h:body>
+</html>

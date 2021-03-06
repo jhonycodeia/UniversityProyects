@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>SENTINEL BLUE | Prime Faces Layouts Header</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+	<h:outputScript name="js/login.js" library="sentinel-layout" />
+	<h:outputStylesheet name="css/font-icon-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/sentinel-layout.css"
+		library="sentinel-layout" />
+	<h:outputStylesheet name="css/core-layout.css"
+		library="sentinel-layout" />
+</h:head>
+
+<h:body class="fontRegular login-back white-back">
+
+	<div class="Container">
+		<div
+			class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent10">
+			<a href="" id="login-logo"> <h:graphicImage
+					name="images/LOGO.svg" styleClass="Fleft" library="sentinel-layout" />
+				<span class="Fs30 FontTitilliumSemiBoldItalic Fleft"><span
+					class="softblue">GREEN</span><span class="hardblue">PLUS</span></span>
+			</a>
+			<div class="EmptyBox10"></div>
+		</div>
+
+		<!-- LOGIN BOX COVER START -->
+		<div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10"
+			id="login-box">
+			<div class="Container">
+				<div
+					class="Container100 TexAlCenter Animated05 BoxSizeBorder TabBtn left TabBtnActiveLeft"
+					role="1">
+					<div class="Container80 Fnone MarAuto FontBold">
+						<i class="icon-user"></i>Registrate
+					</div>
+				</div>
+				<h:form id="formDialog">
+					<p:growl id="men" />
+					<div
+						class="Container90 Fnone MarAuto TexAlCenter TabContent OvHidden"
+						id="TAB1">
+						<div class="EmptyBox50"></div>
+						<p:inputText binding="#{usuarioRegisterView.txtNombre}"
+							placeholder="Nombre" styleClass="Container80 Fnone MarAuto Fs18" />
+						<div class="EmptyBox10"></div>
+						<p:inputText binding="#{usuarioRegisterView.txtApellido}"
+							placeholder="Apellido"
+							styleClass="Container80 Fnone MarAuto Fs18" />
+						<div class="EmptyBox10"></div>
+						<p:inputText binding="#{usuarioRegisterView.txtCorreo}"
+							placeholder="Correo" styleClass="Container80 Fnone MarAuto Fs18" />
+						<div class="Container85 Fnone MarAuto softgray">
+							<p:link value="Regresar al login?" styleClass="Fleft"
+								href="login.xhtml" />
+						</div>
+						<div class="EmptyBox30"></div>
+						<p:commandButton value="Registrar"
+							action="#{usuarioRegisterView.register}"
+							binding="#{usuarioRegisterView.btnSave}" styleClass="Fs16"
+							update="men" onstart="PF('statusDialog').show()"
+							onsuccess="PF('statusDialog').hide()" />
+						<div class="EmptyBox50"></div>
+					</div>
+				</h:form>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- LOGIN BOX COVER END -->
+	<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+		draggable="false" closable="false">
+		<p:graphicImage
+			value="https://mir-s3-cdn-cf.behance.net/project_modules/disp/35771931234507.564a1d2403b3a.gif" />
+	</p:dialog>
+
+
+</h:body>
+
+</html>

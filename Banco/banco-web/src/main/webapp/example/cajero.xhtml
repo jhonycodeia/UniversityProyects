@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Administracion Cajero</title>
+	<meta name="content-type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:panel id="pnlCajero" header="Panel administrativo Cajero">
+			<p:outputLabel>Bienvenido jose vargas sandobal</p:outputLabel>
+			<a
+				href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+				style="float: right;"> Cerrar Session </a>
+			<h3>Panel administrativo</h3>
+			<p:growl />
+			<p:tabView orientation="left">
+				<p:tab title="Consignacionar">
+					<p:panel id="pnlConsignacion" header="Consignacion">
+						<p:growl />
+						<h:panelGrid columns="2" style="width:100%;">
+
+							<p:outputLabel value="Numero de cuenta:" />
+							<p:inputText id="txtCuenta" binding="#{cajeroVista.txtCuenta}"
+								placeholder="Ejemplo: 1245-4533-3423-5565" style="width:70%;" />
+
+							<p:outputLabel value="Identificacion:" />
+							<p:inputText id="txtIdentificacion"
+								binding="#{cajeroVista.txtIdentificacion}"
+								placeholder="ingrese su identificacion" style="width:70%;" />
+
+							<p:outputLabel value="Valor a consignar:" />
+							<p:inputNumber placeholder="Ejemplo: 2500000"
+								binding="#{cajeroVista.txtValor}" style="width:75%;" />
+
+
+							<p:commandButton value="Ejecutar transaccion"
+								update="pnlConsignacion"
+								action="#{cajeroVista.consignacionAction}" style="width:100%;" />
+							<p:commandButton value="Limpiar" update="pnlConsignacion"
+								action="#{cajeroVista.limpiarConsignar}" style="width:100%;" />
+
+						</h:panelGrid>
+						<p:panelGrid columns="2" style="width:100%;" header="Resultado">
+							<p:outputLabel value="Cuenta:" />
+							<p:inputText disabled="true" id="txtCuentaResult"
+								binding="#{cajeroVista.txtCuentaResult}" style="width:70%;" />
+
+							<p:outputLabel value="Saldo:" />
+							<p:inputText disabled="true" id="txtSaldoResult"
+								binding="#{cajeroVista.txtSaldoResult}" style="width:70%;" />
+
+							<p:outputLabel value="Activa:" />
+							<p:inputText disabled="true" id="txtActivaResult"
+								binding="#{cajeroVista.txtActivaResult}" style="width:70%;" />
+						</p:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Retirar">
+					<p:panel id="pnlRetiro" header="Retiro">
+						<p:growl />
+						<h:panelGrid columns="2" style="width:100%;">
+							<p:outputLabel value="Numero de cuenta:" />
+							<p:inputText placeholder="Ejemplo: 1245-4533-3423-5565" id="txtRCuenta"
+								binding="#{cajeroVista.txtRCuenta}" style="width:70%;" />
+
+							<p:outputLabel value="Identificacion:" />
+							<p:inputText placeholder="ingrese su identificacion" id="txtRIdentificacion"
+								binding="#{cajeroVista.txtRIdentificacion}" style="width:70%;" />
+
+							<p:outputLabel value="Valor a retirar:" />
+							<p:inputNumber placeholder="Ejemplo: 2500000" id="txtRValor"
+							    binding="#{cajeroVista.txtRValor}" style="width:75%;" />
+
+
+							<p:commandButton value="Ejecutar transaccion" update="pnlRetiro" 
+							action="#{cajeroVista.retiroAction}" style="width:100%;" />
+							<p:commandButton value="Limpiar" update="pnlRetiro" style="width:100%;" action="#{cajeroVista.limpiarRetiro}" />
+
+						</h:panelGrid>
+						<p:panelGrid columns="2" style="width:100%;" header="Resultado">
+							<p:outputLabel value="Cuenta:" />
+							<p:inputText disabled="true"  id="txtRCuentaResult" 
+							binding="#{cajeroVista.txtRCuentaResult}" style="width:70%;" />
+
+							<p:outputLabel value="Saldo:" />
+							<p:inputText disabled="true" id="txtRSaldoResult" 
+							binding="#{cajeroVista.txtRSaldoResult}" style="width:70%;" />
+
+							<p:outputLabel value="Activa:" />
+							<p:inputText disabled="true" id="txtRActivaResult" 
+							binding="#{cajeroVista.txtRActivaResult}" style="width:70%;" />
+						</p:panelGrid>
+					</p:panel>
+				</p:tab>
+			</p:tabView>
+
+		</p:panel>
+
+	</h:form>
+</h:body>
+</html>

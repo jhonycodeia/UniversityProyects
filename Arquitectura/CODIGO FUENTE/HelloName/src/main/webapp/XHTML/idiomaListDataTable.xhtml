@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+		 
+	<ui:define name="content">		
+
+		  			<h:form id="frm">								  		
+						
+						<p:panel id="panelDataTableIdioma" header="IdiomaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{idiomaView.data}" var="idioma"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{idioma.idIdioma}" sortBy="#{idioma.idIdioma}" >
+										 <f:facet name="header">
+										<h:outputText value="idIdioma"/>
+										</f:facet>
+										 <h:outputText value="#{idioma.idIdioma}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{idioma.nombreIdioma}" sortBy="#{idioma.nombreIdioma}" >
+										 <f:facet name="header">
+										<h:outputText value="NombreIdioma"/>
+										</f:facet>
+										 <h:outputText value="#{idioma.nombreIdioma}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogIdioma"
+										actionListener="#{idiomaView.action_edit}">
+										<f:attribute name="selectedIdioma" value="#{idioma}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{idiomaView.action_delete_datatable}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedIdioma" value="#{idioma}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{idiomaView.action_new()}" update=":dialogIdioma" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogIdioma" appendTo="@(body)" draggable="true"
+						closable="false" visible="#{idiomaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" />
+							<p:panel id="panelIdioma" header="Idioma">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdIdioma" value="IdIdioma"/>
+									 <p:inputText id="txtIdIdioma" binding="#{idiomaView.txtIdIdioma}">
+									 <p:ajax update=":dialogIdioma" listener="#{idiomaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgNombreIdioma" value=" NombreIdioma"/>
+									<p:inputText id="txtNombreIdioma" disabled="true" binding="#{idiomaView.txtNombreIdioma}"/>
+																		
+																    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{idiomaView.btnSave}" value="Save" action="#{idiomaView.action_save()}" update=":dialogIdioma :frm:panelDataTableIdioma" />
+									<p:commandButton id="btnClear" value="Clear" action="#{idiomaView.action_clear()}" update=":dialogIdioma" />
+									<p:commandButton id="btnExit" value="Exit" action="#{idiomaView.action_closeDialog()}" update=":dialogIdioma" />
+								</div>
+				</p:panel>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
+

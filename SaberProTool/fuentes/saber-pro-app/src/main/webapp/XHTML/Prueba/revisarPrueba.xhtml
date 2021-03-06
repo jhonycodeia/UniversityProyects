@@ -1,0 +1,140 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="frmPrueba">
+			<p:messages id="msg" autoUpdate="true" />
+			<p:growl id="men" autoUpdate="true" />
+
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="EmptyBox20"></div>
+
+					<div class="Container100 Responsive">
+						<div class="ContainerIndent">
+							<p:panel id="progreso">
+
+								<h:panelGrid columns="2">
+									<p:outputLabel value="Módulo:" />
+									<p:selectOneMenu id="cmbModulo"
+										value="#{revisarPruebaView.idModuloSeleccionado}"
+										valueChangeListener="#{revisarPruebaView.cambioModulo}">
+										<f:selectItems value="#{revisarPruebaView.modulos}" />
+										<p:ajax update="pnlPregunta,pnlRespuestas" />
+									</p:selectOneMenu>									
+								</h:panelGrid>
+
+								<p:progressBar
+									value="#{revisarPruebaView.modeloPruebaDTO.porcentajeAvance}"
+									labelTemplate="#{revisarPruebaView.modeloPruebaDTO.porcentajeAvance}%" />
+
+								<p:separator styleClass="Wid100" />
+
+								<div align="center">
+
+									<p:commandLink
+										actionListener="#{revisarPruebaView.action_anteriorPregunta}"
+										update="pnlPregunta,pnlRespuestas,cmbModulo">
+										<h:graphicImage
+											url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/left.png"
+											style="width: 32px; height: 32px;" />
+									</p:commandLink>
+
+									<p:commandLink
+										actionListener="#{revisarPruebaView.action_siguientePregunta}"
+										update="pnlPregunta,pnlRespuestas,cmbModulo">
+										<h:graphicImage
+											url="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/right.png"
+											style="width: 32px; height: 32px;" />
+									</p:commandLink>
+								</div>
+
+							</p:panel>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="EmptyBox20"></div>
+
+					<div class="Container100 Responsive">
+						<div class="ContainerIndent">
+							<p:panel id="pnlPregunta" header="PREGUNTA">
+
+								<p:outputLabel escape="false"
+									value="#{revisarPruebaView.preguntaActual.preguntaDTO.descripcionPregunta}" />
+
+							</p:panel>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="EmptyBox20"></div>
+
+					<div class="Container100 Responsive">
+						<div class="ContainerIndent">
+							<p:panel id="pnlRespuestas" header="OPCIONES DE RESPUESTA">
+
+								<p:dataTable
+									value="#{revisarPruebaView.preguntaActual.respuestasDTO}"
+									var="respuesta" selectionMode="single"
+									selection="#{revisarPruebaView.preguntaActual.respuestaSeleccionada}"
+									rowKey="#{respuesta.idRespuesta}"
+									disabledSelection="true"
+									rowStyleClass="#{respuesta.porcentajeAcierto==100? 'old' : null}">									
+
+									<p:column>
+										<p:outputLabel value="#{respuesta.descripcionRespuesta}"
+											escape="false" />
+									</p:column>
+								</p:dataTable>
+
+							</p:panel>
+						</div>
+					</div>
+				</div>
+			</div>
+			<style>
+			.old{
+				background: #007f08 !important;				
+			}			
+			td .ui-outputlabel{
+				color:black;
+			}
+			</style>
+
+			<div class="Container100">
+				<div class="ContainerIndent">
+					<div class="EmptyBox10"></div>
+
+					<div class="Container100 Responsive">
+						<div class="ContainerIndent">
+							<p:panel>
+								<p>Nota:<br/>
+								La casilla de color azul: es la escogida en la prueba<br/>
+								La casilla de color verde: es la respuesta correcta<br/><br/>
+								En caso de que no apareca la casilla de color verde significa que respondio correctamente
+								</p>
+								
+								<p:commandButton value="Visualizar los resultados" action="#{revisarPruebaView.verResultados}"/>
+								
+							</p:panel>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

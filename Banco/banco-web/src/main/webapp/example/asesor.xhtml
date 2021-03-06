@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Administracion Asesor comercial</title>
+	<meta name="content-type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:panel id="pnlCliente"
+			header="Panel administrativo Asesor Comercial">
+			<p:outputLabel>Bienvenido jose vargas sandobal</p:outputLabel>
+			<a
+				href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+				style="float: right;"> Cerrar Session </a>
+			<h3>Panel administrativo</h3>
+			<p:growl />
+			<p:tabView orientation="left">
+				<p:tab title="Gestion Cliente">
+					<p:panel id="pnlCliente" header="Cliente">
+						<p:growl />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Id:" />
+							<p:inputText id="txtId" binding="#{asesorVista.txtId}">
+								<p:ajax listener="#{asesorVista.txtIdListener}"
+									update="pnlCliente,pnlCuenta" />
+							</p:inputText>
+
+							<p:outputLabel value="Tipo Documento:" />
+							<p:selectOneMenu id="somTipoDocumento"
+								binding="#{asesorVista.somTipoDocumento}">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItems value="#{asesorVista.losTipoDocumentoSelectItem}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Nombre:" />
+							<p:inputText id="txtNombre" binding="#{asesorVista.txtNombre}" />
+
+							<p:outputLabel value="Direccion:" />
+							<p:inputText id="txtDireccion"
+								binding="#{asesorVista.txtDireccion}" />
+
+							<p:outputLabel value="Telefono:" />
+							<p:inputText id="txtTelefono"
+								binding="#{asesorVista.txtTelefono}" />
+
+							<p:outputLabel value="Email:" />
+							<p:inputText id="txtMail" binding="#{asesorVista.txtMail}" />
+
+							<p:outputLabel value="Activo:" />
+							<p:selectOneMenu id="somActivo"
+								binding="#{asesorVista.somActivo}">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItem itemValue="S" itemLabel="SI" />
+								<f:selectItem itemValue="N" itemLabel="NO" />
+							</p:selectOneMenu>
+
+						</h:panelGrid>
+						<h:panelGrid columns="3">
+							<p:commandButton update="pnlCliente"
+								action="#{asesorVista.crearAction}" disabled="true"
+								binding="#{asesorVista.btnCrear}" id="btnCrear" value="Crear" />
+							<p:commandButton update="pnlCliente"
+								action="#{asesorVista.updateAction}" disabled="true"
+								binding="#{asesorVista.btnModificar}" id="btnModifcar"
+								value="Modificar" />
+							<p:commandButton update="pnlCliente,pnlCuenta"
+								action="#{asesorVista.limpiarAction}"
+								binding="#{asesorVista.btnLimpiar}" id="btnLimpiar"
+								value="Limpiar" />
+						</h:panelGrid>
+						<p:dataTable id="dataCliente" value="#{asesorVista.losClientes}"
+							var="cliente" paginator="true" rows="10"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15,20,25,30">
+							<p:column headerText="IDENTIFICACION">
+								<p:outputLabel value="#{cliente.clieId}" />
+							</p:column>
+							<p:column headerText="NOMBRE">
+								<p:outputLabel value="#{cliente.nombre}" />
+							</p:column>
+							<p:column headerText="CORREO">
+								<p:outputLabel value="#{cliente.email}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+
+				</p:tab>
+				<p:tab title="Gestion Cuenta">
+
+					<p:panel id="pnlCuenta" header="Cuenta">
+						<p:growl />
+						<h:panelGrid columns="5">
+							<p:outputLabel value="Identificacion:" />
+							<p:inputText id="txtClienteId"
+								binding="#{asesorVista.txtClienteId}" disabled="true" />
+							<p:outputLabel value="Nombre:" />
+							<p:inputText id="txtClienteNombre"
+								binding="#{asesorVista.txtClienteNombre}" disabled="true" />
+							<p:commandButton id="btnCrearCuenta"
+								binding="#{asesorVista.btnCrearCuenta}"
+								value="Crear Cuenta nueva" disabled="true" update="pnlCuenta"
+								action="#{asesorVista.crearCuenta}" />
+						</h:panelGrid>
+						<p:dataTable id="dataCuenta" value="#{asesorVista.lasCuentas}"
+							var="cuenta">
+							<p:column headerText="Numero">
+								<p:outputLabel value="#{cuenta.cuenId}" />
+							</p:column>
+							<p:column headerText="Clave">
+								<p:outputLabel value="#{cuenta.clave}" />
+							</p:column>
+							<p:column headerText="Saldo">
+								<p:outputLabel value="#{cuenta.saldo}" />
+							</p:column>
+							<p:column headerText="Activa">
+								<p:outputLabel value="#{cuenta.activa}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+			</p:tabView>
+
+		</p:panel>
+
+	</h:form>
+</h:body>
+</html>

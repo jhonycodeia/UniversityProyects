@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">
+			<p:messages id="msg" />
+			<p:growl id="men" />
+			<p:panel id="panelProgramaSimulacro" header="Informe grupal">
+				<h:panelGrid columns="2" id="panelGrid">
+					<p:outputLabel value="Facultad  :" />
+					<p:outputLabel value="#{datosSessionView.facultad.nombre}" />
+					<p:outputLabel value="Programa académico  :" />
+					<p:outputLabel value="#{datosSessionView.programa.nombre}" />
+					<p:outputLabel value="Tipo de prueba  :" />
+					<p:selectOneMenu binding="#{programaInformeGrupoView.somTipoModulo}">
+						<f:selectItem itemValue="#{null}" itemLabel="----------------------------------" />		
+						<f:selectItems value="#{programaInformeGrupoView.lasTipoPruebaSelectItem}"/>				
+					</p:selectOneMenu>
+					<p:outputLabel value="Módulo  :" />
+					<p:selectOneMenu binding="#{programaInformeGrupoView.somModulo}">
+						<f:selectItem itemValue="#{null}" itemLabel="----------------------------------" />		
+						<f:selectItems value="#{programaInformeGrupoView.lasModuloSelectItem}"/>				
+					</p:selectOneMenu>
+					<p:outputLabel value="Periodo académico :" />
+					<p:inputMask  mask="9999-9" value="#{programaInformeGrupoView.periodo}"/>	
+					</h:panelGrid>
+					<p:pickList value="#{programaInformeGrupoView.usuarios}" var="usuario"
+						converter="moduloPickListConverter"
+						itemLabel="#{usuario.codigo} #{usuario.nombre} #{usuario.apellido}"
+						itemValue="#{usuario}" showCheckbox="true" responsive="true"
+						showSourceFilter="true" showTargetFilter="true"
+						filterMatchMode="contains">
+						<f:facet name="sourceCaption">Escoger</f:facet>
+						<f:facet name="targetCaption">Seleccionados</f:facet>
+					</p:pickList>
+					<p:commandButton  ajax="false" value="Generar reporte" update="msg" >
+						<p:fileDownload value="#{programaInformeGrupoView.reportePDF}" />
+					</p:commandButton>
+			</p:panel>
+			
+			
+
+		</h:form>
+	</ui:define>
+</ui:composition>

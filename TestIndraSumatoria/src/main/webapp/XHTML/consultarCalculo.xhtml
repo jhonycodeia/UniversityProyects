@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formDialog">			
+			<p:growl id="men"/>
+			<p:panel id="panelRegistroCalculo" header="CONSULTAR CALCULOS">
+				<h:panelGrid columns="2" id="panelGrid">
+					<p:outputLabel value="USUARIO" />
+					<p:inputText value="#{consultarView.user}"/>
+					<p:outputLabel value="RESPUESTA MINIMA" />
+					<p:inputNumber value="#{consultarView.minimo}" minValue="0" />
+					<p:outputLabel value="RESPUESTA MAXIMA" />
+					<p:inputNumber value="#{consultarView.maximo}" minValue="0" />
+					<p:outputLabel />
+					<div>
+					<p:commandButton value="CONSULTAR" action="#{consultarView.consultar}"  update="formDialog"/>
+					<p:commandButton value="LIMPIAR" action="#{consultarView.limpiar}"  update="formDialog"/>
+					</div>
+				</h:panelGrid>
+				<br></br>
+				<p:dataTable var="user" id="tablaDatos" value="#{consultarView.data}">
+					<p:column headerText="Usuario">
+						<h:outputText value="#{user.name}" />
+					</p:column>
+
+					<p:column headerText="Resultado">
+						<h:outputText value="#{user.resultado}" />
+					</p:column>
+
+					<p:column headerText="Fecha">
+						<h:outputText value="#{user.fechaEjecucion}" />
+					</p:column>
+
+					<p:column headerText="Eliminar">
+						<p:commandButton value="Borrar" action="#{consultarView.borrar(user.idResultado)}" update="formDialog"/>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

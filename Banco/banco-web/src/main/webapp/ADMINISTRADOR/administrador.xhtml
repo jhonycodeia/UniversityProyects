@@ -1,0 +1,312 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Administracion Cajero</title>
+	<meta name="content-type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:panel id="pnlCajero" header="Panel administrativo Administrativo">
+			<p:outputLabel value="#{administradorVista.nombreUsuario}" />
+
+			<a
+				href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/j_spring_security_logout"
+				style="float: right; padding: 20px; display: block; margin: 20px;">
+				Cerrar Session </a>
+			<a
+				href="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/ASESOR_COMERCIAL/asesor.xhtml"
+				style="float: right; padding: 20px; display: block; text-decoration: none; background: blue; color: white; margin: 20px; border-radius: 30px;">Asesor
+				comercial </a>
+			<h3>Panel administrativo</h3>
+			<p:growl />
+			<p:tabView orientation="left">
+				<p:tab title="Gestion Usuario">
+					<p:panel id="pnlUsuario" header="Gestion Usuario">
+						<p:growl />
+						<h:panelGrid columns="2">
+
+							<p:outputLabel value="Username:" />
+							<p:inputText id="txtId" binding="#{administradorVista.txtId}">
+								<p:ajax listener="#{administradorVista.txtIdListener}"
+									update="pnlUsuario" />
+							</p:inputText>
+
+							<p:outputLabel value="Nombre:" />
+							<p:inputText id="txtNombre"
+								binding="#{administradorVista.txtNombre}" />
+
+							<p:outputLabel value="Tipo Usuario:" />
+							<p:selectOneMenu id="somTipoUsuario"
+								binding="#{administradorVista.somTipoUsuario}">
+								<f:selectItem itemValue="-1" itemLabel="-------------------" />
+								<f:selectItems
+									value="#{administradorVista.losTipoUsuarioSelectItem}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="Identificacion:" />
+							<p:inputText id="txtIdentificacion"
+								binding="#{administradorVista.txtIdentificacion}" />
+
+							<p:outputLabel value="Clave:" />
+							<p:password id="txtClave1"
+								binding="#{administradorVista.txtClave1}" />
+
+							<p:outputLabel value="Repetir misma Clave:" />
+							<p:password id="txtClave2"
+								binding="#{administradorVista.txtClave2}" />
+
+							<p:outputLabel value="Activo:" />
+							<p:selectOneMenu id="somActivo"
+								binding="#{administradorVista.somActivo}">
+								<f:selectItem itemValue="Z" itemLabel="-------------------" />
+								<f:selectItem itemValue="S" itemLabel="SI" />
+								<f:selectItem itemValue="N" itemLabel="NO" />
+							</p:selectOneMenu>
+						</h:panelGrid>
+						<h:panelGrid columns="3">
+							<p:commandButton update="pnlUsuario"
+								action="#{administradorVista.crearAction}"
+								binding="#{administradorVista.btnCrear}" disabled="true"
+								id="btnCrear" value="Crear" />
+							<p:commandButton update="pnlUsuario"
+								action="#{administradorVista.updateAction}"
+								binding="#{administradorVista.btnModificar}" disabled="true"
+								id="btnModifcar" value="Modificar" />
+							<p:commandButton update="pnlUsuario"
+								action="#{administradorVista.limpiarAction}"
+								binding="#{administradorVista.btnLimpiar}" disabled="false"
+								id="btnLimpiar" value="Limpiar" />
+						</h:panelGrid>
+						<p:dataTable id="dataUsuario"
+							value="#{administradorVista.losUsuarios}"
+							emptyMessage="No hay usuarios" var="usuario" reflow="true"
+							resizableColumns="true" rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="10,50,100" scrollable="true"
+							scrollHeight="300">
+							<p:column headerText="ID" filterMatchMode="contains"
+								filterBy="#{usuario.usuUsuario}">
+								<p:outputLabel value="#{usuario.usuUsuario}" />
+							</p:column>
+							<p:column headerText="NOMBRE" filterMatchMode="contains"
+								filterBy="#{usuario.nombre}">
+								<p:outputLabel value="#{usuario.nombre}" />
+							</p:column>
+							<p:column headerText="CONSTRASEÑA">
+								<p:outputLabel value="#{usuario.clave}" />
+							</p:column>
+							<p:column headerText="Tipo de usuario"
+								filterBy="#{usuario.tipoUsuario.nombre}"
+								filterMatchMode="contains">
+								<p:outputLabel value="#{usuario.tipoUsuario.nombre}" />
+							</p:column>
+							<p:column headerText="Activo" filterBy="#{usuario.activo}"
+								filterMatchMode="contains">
+								<h:outputLabel value="#{usuario.activo}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Transaccion">
+					<p:panel header="Transacciones" id="pnlTransacciones">
+						<p:dataTable id="dataTrsansacciones"
+							emptyMessage="No transacciones"
+							value="#{administradorVista.lasTransacciones}" var="tran"
+							reflow="true" resizableColumns="true" rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="10,50,100" scrollable="true"
+							scrollHeight="300">
+							<p:column headerText="numero cuenta"
+								filterBy="#{tran.cuenta.cuenId}" filterMatchMode="contains">
+								<h:outputLabel value="#{tran.cuenta.cuenId}" />
+							</p:column>
+							<p:column headerText="Valor">
+								<h:outputLabel value="#{tran.valor}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputLabel>
+							</p:column>
+							<p:column headerText="Fecha" filterBy="#{tran.fecha}"
+								filterMatchMode="contains">
+								<h:outputLabel value="#{tran.fecha}" />
+							</p:column>
+							<p:column headerText="Tipo transaccion"
+								filterBy="#{tran.tipoTransaccion.nombre}"
+								filterMatchMode="contains">
+								<h:outputLabel value="#{tran.tipoTransaccion.nombre}" />
+							</p:column>
+							<p:column headerText="Usuario" filterBy="#{tran.usuario.nombre}"
+								filterMatchMode="contains">
+								<h:outputLabel value="#{tran.usuario.nombre}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Tipo de documento">
+					<p:panel id="pnlTipoDocumento" header="Gestion tipo documento">
+						<p:growl />
+						<h:panelGrid columns="5">
+							<p:outputLabel value="Nombre:" />
+							<p:inputText placeholder="Nombre documento"
+								id="txtNombreTipoDocumento"
+								binding="#{administradorVista.txtNombreTipoDocumento}">
+								<p:ajax
+									listener="#{administradorVista.txtListenerTipoDocumento}"
+									update="pnlTipoDocumento" />
+							</p:inputText>
+							<p:outputLabel value="Activo:" />
+							<p:selectOneMenu id="somActivoTipoDocumento"
+								binding="#{administradorVista.somActivoTipoDocumento}">
+								<f:selectItem itemValue="Z" itemLabel="-------------------" />
+								<f:selectItem itemValue="S" itemLabel="SI" />
+								<f:selectItem itemValue="N" itemLabel="NO" />
+							</p:selectOneMenu>
+							<h:panelGrid columns="3">
+								<p:commandButton value="Crear"
+									action="#{administradorVista.createTipoDocumento}"
+									update="pnlTipoDocumento" disabled="true"
+									binding="#{administradorVista.btnCrearTipoDocumento}" />
+								<p:commandButton value="Modificar"
+									action="#{administradorVista.modificarTipoDocumento}"
+									update="pnlTipoDocumento" disabled="true"
+									binding="#{administradorVista.btnModificarTipoDocumento}" />
+								<p:commandButton value="Limpiar"
+									action="#{administradorVista.limpiarTipoDocumento}"
+									update="pnlTipoDocumento"
+									binding="#{administradorVista.btnLimpiarTipoDocumento}" />
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<p:dataTable id="dataTipoDocumento"
+							emptyMessage="No hay tipo documento"
+							value="#{administradorVista.losTipoDocumento}" var="tipoDocu"
+							reflow="true" resizableColumns="true" scrollable="true"
+							scrollHeight="300">
+							<p:column headerText="Id">
+								<h:outputLabel value="#{tipoDocu.tdocId}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<h:outputLabel value="#{tipoDocu.nombre}" />
+							</p:column>
+							<p:column headerText="Activo">
+								<h:outputLabel value="#{tipoDocu.activo}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Tipo de usuario">
+					<p:panel id="pnlTipoUsuario" header="Gestion tipo usuario">
+						<p:growl />
+						<h:panelGrid columns="5">
+							<p:outputLabel value="Nombre:" />
+							<p:inputText placeholder="Nombre"
+								binding="#{administradorVista.txtNombreTipoUsuario}"
+								id="txtNombreTipoUsuario">
+								<p:ajax listener="#{administradorVista.txtListenerTipoUsuario}"
+									update="pnlTipoUsuario" />
+							</p:inputText>
+							<p:outputLabel value="Activo:" />
+							<p:selectOneMenu
+								binding="#{administradorVista.somActivoTipoUsuario}"
+								id="somActivoTipoUsuario">
+								<f:selectItem itemValue="Z" itemLabel="-------------------" />
+								<f:selectItem itemValue="S" itemLabel="SI" />
+								<f:selectItem itemValue="N" itemLabel="NO" />
+							</p:selectOneMenu>
+							<h:panelGrid columns="3">
+								<p:commandButton value="Crear" update="pnlTipoUsuario"
+									disabled="true"
+									action="#{administradorVista.createTipoUsuario}"
+									binding="#{administradorVista.btnCrearTipoUsuario}" />
+								<p:commandButton value="Modificar" update="pnlTipoUsuario"
+									disabled="true"
+									action="#{administradorVista.modificarTipoUsuario}"
+									binding="#{administradorVista.btnModificarTipoUsuario}" />
+								<p:commandButton value="Limpiar" update="pnlTipoUsuario"
+									action="#{administradorVista.limpiarTipoUsuario}"
+									binding="#{administradorVista.btnLimpiarTipoUsuario}" />
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<p:dataTable id="dataTipoUsuario"
+							emptyMessage="No hay tipo usuario"
+							value="#{administradorVista.losTipoUsuario}" var="tipoUser"
+							reflow="true" resizableColumns="true" scrollable="true"
+							scrollHeight="300">
+							<p:column headerText="Id">
+								<h:outputLabel value="#{tipoUser.tiusId}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<h:outputLabel value="#{tipoUser.nombre}" />
+							</p:column>
+							<p:column headerText="Activo">
+								<h:outputLabel value="#{tipoUser.activo}" />
+							</p:column>
+
+						</p:dataTable>
+					</p:panel>
+				</p:tab>
+				<p:tab title="Tipo de transaccion">
+					<p:panel id="pnlTipoTransaccion" header="Gestion tipo Transaccion">
+						<p:growl />
+						<h:panelGrid columns="5">
+							<p:outputLabel value="Nombre:" />
+							<p:inputText placeholder="Nombre"
+								binding="#{administradorVista.txtNombreTipoTransaccion}"
+								id="txtNombreTipoTransaccion">
+								<p:ajax
+									listener="#{administradorVista.txtListenerTipoTransaccion}"
+									update="pnlTipoTransaccion" />
+							</p:inputText>
+							<p:outputLabel value="Activo:" />
+							<p:selectOneMenu
+								binding="#{administradorVista.somActivoTipoTransaccion}"
+								id="somActivoTipoTransaccion">
+								<f:selectItem itemValue="Z" itemLabel="-------------------" />
+								<f:selectItem itemValue="S" itemLabel="SI" />
+								<f:selectItem itemValue="N" itemLabel="NO" />
+							</p:selectOneMenu>
+							<h:panelGrid columns="3">
+								<p:commandButton value="Crear" update="pnlTipoTransaccion"
+									binding="#{administradorVista.btnCrearTipoTransaccion}"
+									action="#{administradorVista.createTipoTransaccion}"
+									disabled="true" />
+								<p:commandButton value="Modificar" update="pnlTipoTransaccion"
+									binding="#{administradorVista.btnModificarTipoTransaccion}"
+									action="#{administradorVista.modificarTipoTransaccion}"
+									disabled="true" />
+								<p:commandButton value="Limpiar" update="pnlTipoTransaccion"
+									binding="#{administradorVista.btnLimpiarTipoTransaccion}"
+									action="#{administradorVista.limpiarTipoTransaccion}" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<p:dataTable id="dataTipoTransaccion"
+							emptyMessage="No hay tipo usuario"
+							value="#{administradorVista.losTipoTransaccion}" var="tipoTran"
+							reflow="true" resizableColumns="true" scrollable="true"
+							scrollHeight="300">
+							<p:column headerText="Id">
+								<h:outputLabel value="#{tipoTran.titrId}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<h:outputLabel value="#{tipoTran.nombre}" />
+							</p:column>
+							<p:column headerText="Activo">
+								<h:outputLabel value="#{tipoTran.activo}" />
+							</p:column>
+
+						</p:dataTable>
+
+					</p:panel>
+				</p:tab>
+			</p:tabView>
+
+		</p:panel>
+
+	</h:form>
+	
+</h:body>
+</html>
