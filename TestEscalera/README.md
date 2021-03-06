@@ -7,7 +7,7 @@ cerciorarnos que el practicante está a la altura.
 
 - - -
 
-![Tablero](https://raw.githubusercontent.com/JhonyCode/Escalera/master/asset/tablero.PNG)
+![Tablero](asset/tablero.PNG)
 
 #### Las reglas del juego son:
 - El tablero tiene 25 cuadros, y el objetivo es llegar o superar el cuadro 25
