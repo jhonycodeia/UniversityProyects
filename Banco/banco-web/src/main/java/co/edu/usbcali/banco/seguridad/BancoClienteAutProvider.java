@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.stereotype.Component;
 
-import co.edu.usbcali.banco.dao.TestClienteDAO;
 import co.edu.usbcali.banco.modelo.Cliente;
 import co.edu.usbcali.banco.modelo.Cuenta;
 import co.edu.usbcali.banco.modelo.Usuario;
