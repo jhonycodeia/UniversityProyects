@@ -128,7 +128,7 @@
 
 ![login](asset/directorResultadoEstudiante2.PNG)
 
-###### Resultados Grupo De Estuduantes
+###### Resultados Grupo De Estudiantes
 ![login](asset/directorResultadoGrupo.PNG)
 
 ###### Resultados Preguntas
