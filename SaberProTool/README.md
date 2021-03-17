@@ -30,44 +30,6 @@
 
 ![login](asset/home.PNG)
 
-##### Modulo Administrativo
-
-###### Asignar Decano
-
-![login](asset/administracionAsignarDecano.PNG)
-
-###### Estado Pruebas
-
-![login](asset/administracionEstadoPrueba.PNG)
-
-###### Administrar Facultad
-
-![login](asset/administracionFacultad.PNG)
-
-###### Administrar Modulo
-
-![login](asset/administracionModulo.PNG)
-
-###### Administrar Programa
-
-![login](asset/administracionPrograma.PNG)
-
-###### Administrar Tipo Modulo
-
-![login](asset/administracionTipoModulo.PNG)
-
-###### Administrar Tipo Pregunta
-
-![login](asset/administracionTipoPregunta.PNG)
-
-###### Administrar Tipo Prueba
-
-![login](asset/administracionTipoPrueba.PNG)
-
-###### Administrar Tipo Usuario
-
-![login](asset/administracionTipoUsuario.PNG)
-
 ##### Modulo Pregunta
 
 ###### Crear Una Pregunta
@@ -134,3 +96,41 @@
 ###### Resultados Preguntas
 
 ![login](asset/directorResultadoPregunta.PNG)
+
+##### Modulo Administrativo
+
+###### Asignar Decano
+
+![login](asset/administracionAsignarDecano.PNG)
+
+###### Estado Pruebas
+
+![login](asset/administracionEstadoPrueba.PNG)
+
+###### Administrar Facultad
+
+![login](asset/administracionFacultad.PNG)
+
+###### Administrar Modulo
+
+![login](asset/administracionModulo.PNG)
+
+###### Administrar Programa
+
+![login](asset/administracionPrograma.PNG)
+
+###### Administrar Tipo Modulo
+
+![login](asset/administracionTipoModulo.PNG)
+
+###### Administrar Tipo Pregunta
+
+![login](asset/administracionTipoPregunta.PNG)
+
+###### Administrar Tipo Prueba
+
+![login](asset/administracionTipoPrueba.PNG)
+
+###### Administrar Tipo Usuario
+
+![login](asset/administracionTipoUsuario.PNG)
