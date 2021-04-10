@@ -1,0 +1,15 @@
+(bar),rab
+foo(bar(baz)tar)blim,fooratbazrabblim
+foo(bar)baz,foorabbaz
+foo(bar)baz(blim),foorabbazmilb
+foo(bar(baz))blim,foobazrabblim
+foo(bar(baz))blimfoo(bar(baz))blim,foobazrabblimfoobazrabblim
+foo(bar(baz(abc)))blim,foobazcbarabblim
+foo(bar(baz(abc(max))))blim,foobazmaxcbarabblim
+foo(bar(baz(abc(max))))blimfoo(bar(baz))blim,foobazmaxcbarabblimfoobazrabblim
+<bar>,rab
+foo<bar>baz,foorabbaz
+foo<bar>baz<blim>,foorabbazmilb
+foo<bar<baz>>blim,foobazrabblim
+foo<bar<baz<abc>>>blim,foobazcbarabblim
+foo<bar<baz<abc<max>>>>blim,foobazmaxcbarabblim
